@@ -168,7 +168,7 @@ int main( int argc, char **argv )
 
     //---------------------
     // initialize debug message printing:
-    if ( options2.debuglog != cerr)
+    if ( options2.debuglog != &cerr)
         g_sdh_debug_log = options2.debuglog;
     else
         g_sdh_debug_log = options1.debuglog;
