@@ -361,7 +361,7 @@ inline VCC_EXPORT std::ostream &operator<<(std::ostream &stream, cHexByteString 
     //-----
 
     return stream << std::dec;
-};
+}
 
 NAMESPACE_SDH_END
 
