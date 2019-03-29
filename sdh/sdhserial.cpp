@@ -687,7 +687,7 @@ cSimpleVector cSDHSerial::AxisCommand( char const* command, int axis, double* va
                 return cSimpleVector( NUMBER_OF_AXES, reply[0] + cutoff );
             }
 
-            throw new cSDHErrorInvalidParameter( cMsg( "Invalid parameter in AxisCommand( command=%s, axis=%d, value=%p )'", command, axis, value ) );
+            throw new cSDHErrorInvalidParameter( cMsg( "Invalid parameter in AxisCommand( command=%s, axis=%d, value=%f )'", command, axis, *value ) );
 
         } // end of try
         //catch (cSimpleVectorException* e)

@@ -318,7 +318,7 @@ ssize_t cTCPSerial::Read( void *_data, ssize_t size, long _timeout_us, bool retu
     if ( bytes_received < size && !return_on_less_data )
     {
         DBG( dbg << "cTCPSerial::Read(): read3 ignoring " << bytes_received << "/" << size << " bytes (hex): " << cHexByteString( data, bytes_received ) << "\n" );
-        throw new cTCPSerialException( cMsg( "Could only receive %d/%d bytes via TCP \"%s:%d\"", bytes_received, size, tcp_adr.c_str(), tcp_port ) );
+        throw new cTCPSerialException( cMsg( "Could only receive %d/%ld bytes via TCP \"%s:%d\"", bytes_received, size, tcp_adr.c_str(), tcp_port ) );
     }
     //---------------------
 

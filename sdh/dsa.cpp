@@ -333,7 +333,7 @@ void cDSA::ReadSensorInfo( sSensorInfo* _sensor_info )
     ReadResponse( &response, UInt8(eDSA_QUERY_SENSOR_CONFIGURATION) );
 
     if ( response.size != sizeof( *_sensor_info ) )
-        throw new cDSAException( cMsg( "Response with sensorinfo has unexpected size %d (expected %d)", response.size, sizeof(*_sensor_info) ) );
+        throw new cDSAException( cMsg( "Response with sensorinfo has unexpected size %d (expected %ld)", response.size, sizeof(*_sensor_info) ) );
 }
 //----------------------------------------------------------------------
 
@@ -345,7 +345,7 @@ void cDSA::ReadMatrixInfo( sMatrixInfo* _matrix_info  )
     ReadResponse( &response, UInt8(eDSA_QUERY_MATRIX_CONFIGURATION) );
 
     if ( response.size != sizeof( *_matrix_info ) )
-        throw new cDSAException( cMsg( "Response with matrixinfo has unexpected size %d (expected %d)", response.size, sizeof(*_matrix_info) ) );
+        throw new cDSAException( cMsg( "Response with matrixinfo has unexpected size %d (expected %ld)", response.size, sizeof(*_matrix_info) ) );
 }
 //-----------------------------------------------------------------
 
@@ -566,7 +566,7 @@ void cDSA::ParseFrame( sResponse* response, sTactileSensorFrame* frame_p )
         // copy non RLE encoded frame:
 
         if ( response->size - i != (UInt16) (nb_cells * sizeof( tTexel )) )
-            throw new cDSAException( cMsg( "Received non RLE encoded frame contains %d bytes, but %d are expected", response->size - i, nb_cells * sizeof( tTexel ) ) );
+            throw new cDSAException( cMsg( "Received non RLE encoded frame contains %d bytes, but %ld are expected", response->size - i, nb_cells * sizeof( tTexel ) ) );
 
         memcpy( frame_p->texel, &(response->payload[ i ]), response->size - i );
         //---------------------
@@ -887,7 +887,7 @@ cDSA::sSensitivityInfo cDSA::GetMatrixSensitivity( int matrix_no )
 
     if ( response.size != sizeof( sensitivity_info ) )
     {
-        throw new cDSAException( cMsg( "Invalid response from DSACON32m for cDSA::GetMatrixSensitivity(), expected %d bytes but got %d", sizeof( sensitivity_info ), response.size ) );
+        throw new cDSAException( cMsg( "Invalid response from DSACON32m for cDSA::GetMatrixSensitivity(), expected %ld bytes but got %d", sizeof( sensitivity_info ), response.size ) );
     }
     else if (response.payload[0] != 0  || response.payload[1] != 0   )
     {
@@ -945,7 +945,7 @@ UInt16 cDSA::GetMatrixThreshold( int matrix_no )
 
     if ( response.size != sizeof( buffer ) )
     {
-        throw new cDSAException( cMsg( "cDSA::GetMatrixThreshold() Invalid response from DSACON32m, expected %d bytes but got %d", sizeof( buffer ), response.size ) );
+        throw new cDSAException( cMsg( "cDSA::GetMatrixThreshold() Invalid response from DSACON32m, expected %ld bytes but got %d", sizeof( buffer ), response.size ) );
     }
     else if (response.payload[0] != 0  || response.payload[1] != 0   )
     {

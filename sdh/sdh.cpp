@@ -145,7 +145,7 @@ std::vector<double> cSDH::SetAxisValueVector( std::vector<int> const& axes,
 
     if (axes.size() != values.size())
     {
-        throw new cSDHErrorInvalidParameter( cMsg( "Lengths of axis indices and %s values vectors do not match (%d != %d)", name, axes.size(), values.size()) );
+        throw new cSDHErrorInvalidParameter( cMsg( "Lengths of axis indices and %s values vectors do not match (%ld != %ld)", name, axes.size(), values.size()) );
     }
 
     int used = 0; // bit vector of used indices
