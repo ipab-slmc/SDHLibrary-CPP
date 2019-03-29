@@ -211,7 +211,7 @@ cCANSerial_ESD::cCANSerial_ESD( tDeviceHandle _ntcan_handle, double _timeout, in
         throw new cCANSerial_ESDException( cMsg( "Cannot reuse invalid ESD CAN handle" ) );
 
     pimpl = new cCANSerial_ESD_Internal();
-    pimpl->ntcan_handle = NTCAN_HANDLE(_ntcan_handle);
+    pimpl->ntcan_handle = *(NTCAN_HANDLE*)(_ntcan_handle);
     net = -1;
     baudrate = 0;
     SetTimeout( _timeout );
@@ -514,7 +514,7 @@ cSerialBase::tErrorCode cCANSerial_ESD::GetErrorNumber()
 
 tDeviceHandle cCANSerial_ESD::GetHandle()
 {
-    return tDeviceHandle( pimpl->ntcan_handle );
+    return tDeviceHandle( &pimpl->ntcan_handle );
 }
 //----------------------------------------------------------------------
 
