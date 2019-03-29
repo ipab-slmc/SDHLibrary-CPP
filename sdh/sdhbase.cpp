@@ -167,7 +167,6 @@ cSDHBase::cSDHBase( int _debug_level ) :
 
 
 void cSDHBase::CheckIndex( int index, int maxindex, char const* name )
-    throw (cSDHErrorInvalidParameter*)
 {
     if (index < 0  ||  maxindex <= index)
         throw new cSDHErrorInvalidParameter( cMsg( "Invalid %s index %d (not in range [0..%d[)", name, index, maxindex ) );
@@ -176,7 +175,6 @@ void cSDHBase::CheckIndex( int index, int maxindex, char const* name )
 
 
 void cSDHBase::CheckRange( double value, double minvalue, double maxvalue, char const* name )
-    throw (cSDHErrorInvalidParameter*)
 {
     if (! InRange(value, minvalue, maxvalue) )
         throw new cSDHErrorInvalidParameter( cMsg( "Invalid %s value (%f not in range [%f..%f])", name, value, minvalue, maxvalue ) );
@@ -185,7 +183,6 @@ void cSDHBase::CheckRange( double value, double minvalue, double maxvalue, char 
 
 
 void cSDHBase::CheckRange( double* values, double* minvalues, double* maxvalues, char const* name )
-    throw (cSDHErrorInvalidParameter*)
 {
     for ( int i=0; i < NUMBER_OF_AXES; i++ )
     {

@@ -114,8 +114,7 @@ protected:
     // ntcan_handle was removed from here, see class comment and GetHandle()
 
     //! Translate a baudrate given as unsigned long into a baudrate code for struct termios
-    unsigned int BaudrateToBaudrateCode( unsigned long baudrate )
-        throw (cCANSerial_ESDException*);
+    unsigned int BaudrateToBaudrateCode( unsigned long baudrate );
 
     int status;
 
@@ -140,8 +139,7 @@ public:
       \param _id_read  - the CAN ID to use for reading (The %SDH sends data on this ID)
       \param _id_write - the CAN ID to use for writing (The %SDH receives data on this ID)
      */
-    cCANSerial_ESD( int _net, unsigned long _baudrate, double _timeout, int _id_read, int _id_write )
-        throw (cCANSerial_ESDException*);
+    cCANSerial_ESD( int _net, unsigned long _baudrate, double _timeout, int _id_read, int _id_write );
 
     /*!
       Constructor: constructs an object to communicate with an %SDH via CAN bus using an
@@ -152,8 +150,7 @@ public:
       \param _id_read  - the CAN ID to use for reading (The %SDH sends data on this ID)
       \param _id_write - the CAN ID to use for writing (The %SDH receives data on this ID)
      */
-    cCANSerial_ESD( tDeviceHandle _ntcan_handle, double _timeout, int _id_read, int _id_write )
-        throw (cCANSerial_ESDException*);
+    cCANSerial_ESD( tDeviceHandle _ntcan_handle, double _timeout, int _id_read, int _id_write );
 
     //! destructor: clean up
     ~cCANSerial_ESD();
@@ -161,16 +158,14 @@ public:
     /*!
       Open the device as configured by the parameters given to the constructor
     */
-    void Open( void )
-        throw (cCANSerial_ESDException*);
+    void Open( void );
 
     //! Return true if interface to CAN ESD is open
     bool IsOpen( void )
         throw();
 
     //! Close the previously opened CAN ESD interface port.
-    void Close( void )
-        throw (cCANSerial_ESDException*);
+    void Close( void );
 
     //! Write data to a previously opened port.
     /*!
@@ -181,8 +176,7 @@ public:
 
       \return the number of bytes actually written
     */
-    int write( char const *ptr, int len=0 )
-        throw (cCANSerial_ESDException*);
+    int write( char const *ptr, int len=0 );
 
     /*!
       Read data from device. This function waits until \a max_time_us us passed or
@@ -192,12 +186,10 @@ public:
       If the \a return_on_less_data is false, data is only read from serial line, if at least
       \a size bytes are available.
     */
-    ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data )
-        throw (cCANSerial_ESDException*);
+    ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data );
 
     //! set the timeout for next #readline() calls (negative value means: no timeout, wait for ever)
-    void SetTimeout( double _timeout )
-        throw (cSerialBaseException*);
+    void SetTimeout( double _timeout );
 
     /*!
      * Overloaded helper function that returns the last ESD error number.

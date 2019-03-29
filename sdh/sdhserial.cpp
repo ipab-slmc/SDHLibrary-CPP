@@ -119,8 +119,7 @@ struct sSDHBinaryResponse
     }
 
     //! check the CRC value in parameter_bytes. Throw an exception if check fails
-    void CheckCRC16() const
-       throw (cSDHErrorCommunication*);
+    void CheckCRC16() const;
 
 } SDH__attribute__((packed));
 #if SDH_USE_VCC
@@ -178,7 +177,6 @@ sSDHBinaryRequest::sSDHBinaryRequest( eCommandCode command, double* value, bool 
 //-----------------------------------------------------------------
 
 void sSDHBinaryResponse::CheckCRC16() const
-throw (cSDHErrorCommunication*)
 {
     cCRC_SDH checksum;
     tCRCValue crc_calculated = checksum.AddBytes( (unsigned char*) &cmd_code,
@@ -293,7 +291,6 @@ cSDHSerial::cSDHSerial( int _debug_level )
 
 
 void cSDHSerial::Open( cSerialBase* _com )
-    throw (cSDHLibraryException*)
 {
     com = _com;
     assert( com != NULL );
@@ -375,7 +372,6 @@ void cSDHSerial::Open( cSerialBase* _com )
 
 
 void cSDHSerial::Close()
-    throw (cSDHLibraryException*)
 {
     com->Close();
 }
@@ -392,7 +388,6 @@ bool cSDHSerial::IsOpen( void )
 
 void cSDHSerial::Send( char const* s, int nb_lines, int nb_lines_total, int max_retries )
 //void cSDHSerial::Send( char const* s, int nb_lines, int nb_lines_total )
-    throw( cSDHLibraryException* )
 {
     int retries = max_retries; // retry sending at most this many times
     while (retries > 0)
@@ -521,7 +516,6 @@ void cSDHSerial::Send( char const* s, int nb_lines, int nb_lines_total, int max_
 
 
 void cSDHSerial::ExtractFirmwareState()
-    throw (cSDHErrorCommunication*)
 {
     //---------------------
     // check first char of last line of lines
@@ -550,7 +544,6 @@ void cSDHSerial::ExtractFirmwareState()
 
 
 double cSDHSerial::GetDuration( char* line )
-    throw (cSDHErrorCommunication*)
 {
     char* pattern_at = strstr( line, "=" );
 
@@ -596,7 +589,6 @@ double cSDHSerial::get_duration( void )
 
 
 void cSDHSerial::Sync( )
-    throw( cSDHErrorCommunication* )
 {
     // first read all lines to ignore (replies of previous commands)
     while ( nb_lines_to_ignore > 0 )
@@ -613,7 +605,6 @@ void cSDHSerial::Sync( )
 //-----------------------------------------------------------------
 
 void cSDHSerial::BinarySync( double timeout_s )
-    throw( cSDHErrorCommunication* )
 {
     // read and ignore all bytes available within timeout_s
     char* buffer[ 256 ];
@@ -623,7 +614,6 @@ void cSDHSerial::BinarySync( double timeout_s )
 //-----------------------------------------------------------------
 
 void cSDHSerial::SyncUnknown( )
-    throw( cSDHErrorCommunication* )
 {
     // read all lines until timeout
     while (1)
@@ -649,7 +639,6 @@ void cSDHSerial::SyncUnknown( )
 
 
 cSimpleVector cSDHSerial::AxisCommand( char const* command, int axis, double* value )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_VCC
     int cutoff  = static_cast<int>(strlen(command)) + 1;
@@ -734,7 +723,6 @@ cSimpleVector cSDHSerial::AxisCommand( char const* command, int axis, double* va
 //----------------------------------------------------------------------
 
 cSimpleVector cSDHSerial::BinaryAxisCommand( eCommandCode command, int axis, double* value )
-    throw (cSDHLibraryException*)
 {
     bool use_crc16 = com->UseCRC16();
     sSDHBinaryRequest  request( command, value, use_crc16 );
@@ -810,7 +798,6 @@ cSimpleVector cSDHSerial::BinaryAxisCommand( eCommandCode command, int axis, dou
 //----------------------------------------------------------------------
 
 cSimpleVector cSDHSerial::pid( int axis, double* p, double* i, double* d )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( axis, NUMBER_OF_AXES, "axis" );
 
@@ -831,7 +818,6 @@ cSimpleVector cSDHSerial::pid( int axis, double* p, double* i, double* d )
 
 
 cSimpleVector cSDHSerial::kv( int axis, double* kv )
-    throw (cSDHLibraryException*)
 {
     if (axis == All)
     {
@@ -863,7 +849,6 @@ cSimpleVector cSDHSerial::kv( int axis, double* kv )
 
 
 cSimpleVector cSDHSerial::ilim( int axis, double* limit )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_ILIM, axis, limit );
@@ -875,7 +860,6 @@ cSimpleVector cSDHSerial::ilim( int axis, double* limit )
 
 
 cSimpleVector cSDHSerial::power( int axis, double* flag )
-    throw (cSDHLibraryException*)
 {
     // Actual input/output for the command looks like:
     //--
@@ -930,7 +914,6 @@ int cSDHSerial::debug( int value )
 
 
 cSimpleVector cSDHSerial::v( int axis, double* velocity )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_V, axis, velocity );
@@ -942,7 +925,6 @@ cSimpleVector cSDHSerial::v( int axis, double* velocity )
 
 
 cSimpleVector cSDHSerial::tvav( int axis, double* velocity )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_TVAV, axis, velocity );
@@ -954,7 +936,6 @@ cSimpleVector cSDHSerial::tvav( int axis, double* velocity )
 
 
 cSimpleVector cSDHSerial::vlim( int axis, double* dummy )
-    throw (cSDHLibraryException*)
 {
     return AxisCommand( "vlim", axis, NULL );
 }
@@ -962,7 +943,6 @@ cSimpleVector cSDHSerial::vlim( int axis, double* dummy )
 
 
 cSimpleVector cSDHSerial::alim( int axis, double* dummy )
-    throw (cSDHLibraryException*)
 {
     return AxisCommand( "alim", axis, NULL );
 }
@@ -970,7 +950,6 @@ cSimpleVector cSDHSerial::alim( int axis, double* dummy )
 
 
 cSimpleVector cSDHSerial::a( int axis, double* acceleration )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_A, axis, acceleration );
@@ -982,7 +961,6 @@ cSimpleVector cSDHSerial::a( int axis, double* acceleration )
 
 
 cSimpleVector cSDHSerial::p( int axis, double* angle )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_P, axis, angle );
@@ -994,7 +972,6 @@ cSimpleVector cSDHSerial::p( int axis, double* angle )
 
 
 cSimpleVector cSDHSerial::tpap( int axis, double* angle )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_TPAP, axis, angle );
@@ -1006,7 +983,6 @@ cSimpleVector cSDHSerial::tpap( int axis, double* angle )
 
 
 double cSDHSerial::m( bool sequ )
-    throw(cSDHLibraryException*)
 {
     // Actual input/output for the command looks like:
     //--
@@ -1045,7 +1021,6 @@ double cSDHSerial::m( bool sequ )
 
 
 void cSDHSerial::stop( void )
-    throw (cSDHLibraryException*)
 {
     Send( "stop" );
 }
@@ -1053,7 +1028,6 @@ void cSDHSerial::stop( void )
 
 
 cSDHBase::eVelocityProfile cSDHSerial::vp( eVelocityProfile velocity_profile )
-    throw (cSDHLibraryException*)
 {
     char cmd[5];
     if ( velocity_profile < 0 )
@@ -1073,7 +1047,6 @@ cSDHBase::eVelocityProfile cSDHSerial::vp( eVelocityProfile velocity_profile )
 
 
 cSDHBase::eControllerType cSDHSerial::con( eControllerType controller )
-    throw (cSDHLibraryException*)
 {
     char cmd[6];
     if ( controller == eCT_INVALID )
@@ -1093,7 +1066,6 @@ cSDHBase::eControllerType cSDHSerial::con( eControllerType controller )
 
 
 cSimpleVector cSDHSerial::pos( int axis, double* dummy )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_POS, axis );
@@ -1104,7 +1076,6 @@ cSimpleVector cSDHSerial::pos( int axis, double* dummy )
 //----------------------------------------------------------------------
 
 cSimpleVector cSDHSerial::pos_save( int axis, double* value )
-    throw (cSDHLibraryException*)
 {
     return AxisCommand( "pos_save", axis, value );
 }
@@ -1112,7 +1083,6 @@ cSimpleVector cSDHSerial::pos_save( int axis, double* value )
 
 
 cSimpleVector cSDHSerial::ref( int axis, double* value )
-    throw (cSDHLibraryException*)
 {
     // referncing is done with 25 deg/s thus it may take up to 180/25 = 7.2s plus safety time = 10s
     cSerialBase::cSetTimeoutTemporarily set_timeout_temporarily( com, 10.0 );
@@ -1124,7 +1094,6 @@ cSimpleVector cSDHSerial::ref( int axis, double* value )
 
 
 cSimpleVector cSDHSerial::vel( int axis, double* dummy )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_VEL, axis );
@@ -1136,7 +1105,6 @@ cSimpleVector cSDHSerial::vel( int axis, double* dummy )
 
 
 cSimpleVector cSDHSerial::rvel( int axis, double* dummy )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_RVEL, axis );
@@ -1148,7 +1116,6 @@ cSimpleVector cSDHSerial::rvel( int axis, double* dummy )
 
 
 cSimpleVector cSDHSerial::state( int axis, double* dummy )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_STATE, axis );
@@ -1160,7 +1127,6 @@ cSimpleVector cSDHSerial::state( int axis, double* dummy )
 
 
 cSimpleVector cSDHSerial::temp( void )
-    throw(cSDHLibraryException*)
 {
     cSimpleVector rv;
 
@@ -1173,7 +1139,6 @@ cSimpleVector cSDHSerial::temp( void )
 
 
 cSimpleVector cSDHSerial::temp_electronics( void )
-    throw(cSDHLibraryException*)
 {
     cSimpleVector dummy;
     cSimpleVector rv;
@@ -1189,7 +1154,6 @@ cSimpleVector cSDHSerial::temp_electronics( void )
 
 
 char* cSDHSerial::ver( void  )
-    throw(cSDHLibraryException*)
 {
     Send( "ver" );
     return reply[0] + 4;
@@ -1198,7 +1162,6 @@ char* cSDHSerial::ver( void  )
 
 
 char* cSDHSerial::ver_date( void  )
-    throw(cSDHLibraryException*)
 {
     Send( "ver_date" );
     return reply[0] + 9;
@@ -1207,7 +1170,6 @@ char* cSDHSerial::ver_date( void  )
 
 
 char* cSDHSerial::id( void )
-    throw(cSDHLibraryException*)
 {
     Send( "id" );
     return reply[0] + 3;
@@ -1216,7 +1178,6 @@ char* cSDHSerial::id( void )
 
 
 char* cSDHSerial::sn( void )
-    throw(cSDHLibraryException*)
 {
     Send( "sn" );
     return reply[0] + 3;
@@ -1225,7 +1186,6 @@ char* cSDHSerial::sn( void )
 
 
 char* cSDHSerial::soc( void )
-    throw(cSDHLibraryException*)
 {
     Send( "soc" );
     return reply[0] + 4;
@@ -1234,7 +1194,6 @@ char* cSDHSerial::soc( void )
 
 
 char* cSDHSerial::soc_date( void )
-    throw(cSDHLibraryException*)
 {
     Send( "soc_date" );
     return reply[0] + 9;
@@ -1243,7 +1202,6 @@ char* cSDHSerial::soc_date( void )
 
 
 int cSDHSerial::numaxis( void )
-    throw(cSDHLibraryException*)
 {
     Send( "numaxis" );
     ////!!!return int( reply[0]+8 ); // did this ever work???
@@ -1255,7 +1213,6 @@ int cSDHSerial::numaxis( void )
 
 
 cSimpleVector cSDHSerial::igrip( int axis, double* limit )
-    throw (cSDHLibraryException*)
 {
     return AxisCommand( "igrip", axis, limit );
 }
@@ -1263,7 +1220,6 @@ cSimpleVector cSDHSerial::igrip( int axis, double* limit )
 
 
 cSimpleVector cSDHSerial::ihold( int axis, double* limit )
-    throw (cSDHLibraryException*)
 {
     return AxisCommand( "ihold", axis, limit );
 }
@@ -1271,7 +1227,6 @@ cSimpleVector cSDHSerial::ihold( int axis, double* limit )
 
 
 double cSDHSerial::selgrip( eGraspId grip, bool sequ )
-    throw (cSDHLibraryException*)
 {
     // Actual input/output for the command looks like:
     //--
@@ -1320,7 +1275,6 @@ double cSDHSerial::selgrip( eGraspId grip, bool sequ )
 
 
 double cSDHSerial::grip( double close, double velocity, bool sequ )
-    throw (cSDHLibraryException*)
 {
     // Actual input/output for the command looks like:
     //--

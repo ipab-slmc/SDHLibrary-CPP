@@ -74,7 +74,6 @@ using namespace std;
 USING_NAMESPACE_SDH
 
 char* cSerialBase::readline( char* line, int size, char const* eol, bool return_on_less_data )
-    throw(cSerialBaseException*)
 {
     line[0] = '\0';
     int len = 0;

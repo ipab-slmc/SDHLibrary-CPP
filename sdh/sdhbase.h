@@ -219,18 +219,15 @@ public:
 
 
     //! Check if \a index is in [0 .. \a maxindex-1] or All. Throw a cSDHErrorInvalidParameter exception if not.
-    void CheckIndex( int index, int maxindex, char const* name="" )
-        throw (cSDHErrorInvalidParameter*);
+    void CheckIndex( int index, int maxindex, char const* name="" );
 
 
     //! Check if \a value is in [\a minvalue .. \a maxvalue]. Throw a cSDHErrorInvalidParameter exception if not.
-    void CheckRange( double value, double minvalue, double maxvalue, char const* name="" )
-        throw (cSDHErrorInvalidParameter*);
+    void CheckRange( double value, double minvalue, double maxvalue, char const* name="" );
 
 
     //! Check if any value[i] in array \a values is in [\a minvalue[i] .. \a maxvalue[i]]. Throw a cSDHErrorInvalidParameter exception if not.
-    void CheckRange( double* values, double* minvalues, double* maxvalues, char const* name="" )
-        throw (cSDHErrorInvalidParameter*);
+    void CheckRange( double* values, double* minvalues, double* maxvalues, char const* name="" );
 
 
     //! Return a ptr to a (static) string describing error code \a error_code

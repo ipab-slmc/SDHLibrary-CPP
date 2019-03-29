@@ -99,7 +99,6 @@ enum eDSAPacketID
 
 
 void cDSA::WriteCommandWithPayload( UInt8 command, UInt8* payload, UInt16 payload_len )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     cCRC_DSACON32m checksum;
     int bytes_written = 0;
@@ -168,7 +167,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 //-----------------------------------------------------------------
 
 void cDSA::ReadResponse( sResponse* response, UInt8 command_id )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     assert( response != NULL );
 
@@ -213,7 +211,7 @@ throw (cDSAException*, cSDHErrorCommunication*)
         } while ( !found  && retries < DSA_MAX_PREAMBLE_SEARCH );
 
         if ( !found )
-            throw new cDSAException( cMsg( "Could not find valid preamble in %d data bytes from remote DSACON32m controller", bytes_read ) );
+            throw new cDSAException( cMsg( "Could not find valid preamble in %ld data bytes from remote DSACON32m controller", bytes_read ) );
         //---------------------
 
         //---------------------
@@ -221,7 +219,7 @@ throw (cDSAException*, cSDHErrorCommunication*)
         bytes_read = com->Read( response, 3, read_timeout_us, false );
         if ( bytes_read != 3 )
         {
-            throw new cDSAException( cMsg( "Could only read %d/3 header bytes from remote DSACON32m controller", bytes_read ) );
+            throw new cDSAException( cMsg( "Could only read %ld/3 header bytes from remote DSACON32m controller", bytes_read ) );
         }
         //---------------------
 
@@ -272,7 +270,7 @@ throw (cDSAException*, cSDHErrorCommunication*)
         bytes_read = com->Read( response->payload, response->size, read_timeout_us, false );
         if ( bytes_read != response->size )
         {
-            throw new cDSAException( cMsg( "Could only read %d/%d payload bytes from remote DSACON32m controller", bytes_read, response->size ) );
+            throw new cDSAException( cMsg( "Could only read %ld/%d payload bytes from remote DSACON32m controller", bytes_read, response->size ) );
         }
         //---------------------
 
@@ -285,7 +283,7 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
             bytes_read = com->Read( (void*) &checksum_received, sizeof( checksum_received ), read_timeout_us, false );
             if ( bytes_read != sizeof( checksum_received ) )
-                throw new cDSAException( cMsg( "Could only read %d/2 checksum bytes from remote DSACON32m controller", bytes_read ) );
+                throw new cDSAException( cMsg( "Could only read %ld/2 checksum bytes from remote DSACON32m controller", bytes_read ) );
 
             checksum_calculated.AddByte( response->packet_id );
             checksum_calculated.AddByte( ((UInt8*) &response->size)[0] );
@@ -314,7 +312,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::ReadControllerInfo( sControllerInfo* _controller_info )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     sResponse response( (UInt8*) _controller_info, sizeof( *_controller_info ) );
 
@@ -330,7 +327,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::ReadSensorInfo( sSensorInfo* _sensor_info )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     sResponse response( (UInt8*) _sensor_info, sizeof( *_sensor_info ) );
 
@@ -343,7 +339,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::ReadMatrixInfo( sMatrixInfo* _matrix_info  )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     sResponse response( (UInt8*) _matrix_info, sizeof( *_matrix_info ) );
 
@@ -356,7 +351,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::ReadFrame( sTactileSensorFrame* frame_p  )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     // provide a buffer with space for a full frame without RLE
     // this might fail if RLE is used and the data is not RLE "friendly"
@@ -438,7 +432,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::QueryControllerInfo( sControllerInfo* _controller_info  )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     WriteCommand( UInt8(eDSA_QUERY_CONTROLLER_CONFIGURATION) );
     ReadControllerInfo( _controller_info );
@@ -447,7 +440,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::QuerySensorInfo( sSensorInfo* _sensor_info )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     WriteCommand( UInt8(eDSA_QUERY_SENSOR_CONFIGURATION) );
     ReadSensorInfo( _sensor_info );
@@ -456,7 +448,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::QueryMatrixInfo( sMatrixInfo* _matrix_info, int matrix_no )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     WriteCommandWithPayload( UInt8(eDSA_QUERY_MATRIX_CONFIGURATION), (UInt8*) &matrix_no, 1 );
     ReadMatrixInfo( _matrix_info );
@@ -465,7 +456,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::QueryMatrixInfos( void )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     if ( texel_offset != NULL )
     {
@@ -503,7 +493,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::ParseFrame( sResponse* response, sTactileSensorFrame* frame_p )
-throw (cDSAException*)
 {
     unsigned int i = 0; // index of next unparsed data byte in payload
 
@@ -680,7 +669,6 @@ void cDSA::FlushInput( long timeout_us_first, long timeout_us_subsequent )
 
 
 void cDSA::Open(void)
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     com->Open();
 
@@ -749,7 +737,6 @@ cDSA::~cDSA()
 
 
 void cDSA::Close(void)
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     dbg << "Closing\n";
     SetFramerateRetries( 0, true, false, 0, true );
@@ -759,7 +746,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::ReadAndCheckErrorResponse( char const* msg, UInt8 command_id )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     UInt16 error_code;
     sResponse response( (UInt8*) &error_code, sizeof( error_code ) ); // we expect only 2 bytes payload in the answer (the error code)
@@ -778,7 +764,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::SetFramerate( UInt16 framerate, bool do_RLE, bool do_data_acquisition )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     dbg << "cDSA::SetFramerate, setting framerate to " << framerate << " do_data_acquisition= " << do_data_acquisition << "\n";
     UInt8 flags = 0;
@@ -823,7 +808,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 
 void cDSA::SetFramerateRetries( UInt16 framerate, bool do_RLE, bool do_data_acquisition, unsigned int retries, bool ignore_exceptions )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     do
     {
@@ -854,7 +838,6 @@ void cDSA::SetMatrixSensitivity( int matrix_no,
                                  bool do_all_matrices,
                                  bool do_reset,
                                  bool do_persistent )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
 #if SDH_USE_VCC
 #pragma pack(push,1)  // for VCC (MS Visual Studio) we have to set the necessary 1 byte packing with this pragma
@@ -894,7 +877,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 //-----------------------------------------------------------------
 cDSA::sSensitivityInfo cDSA::GetMatrixSensitivity( int matrix_no )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     WriteCommandWithPayload( UInt8(eDSA_GET_SENSITIVITY_ADJUSTMENT_INFO), (UInt8*) &matrix_no, 1 );
 
@@ -922,7 +904,6 @@ void cDSA::SetMatrixThreshold( int matrix_no,
                                bool do_all_matrices,
                                bool do_reset,
                                bool do_persistent )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     if ( controller_info.sw_version < 268 )
         throw new cDSAException( cMsg( "Cannot adjust matrix threshold with current DSACON32m firmware (R%d)! Please update to R268 or above.)", controller_info.sw_version ) );
@@ -951,7 +932,6 @@ throw (cDSAException*, cSDHErrorCommunication*)
 
 //-----------------------------------------------------------------
 UInt16 cDSA::GetMatrixThreshold( int matrix_no )
-throw (cDSAException*, cSDHErrorCommunication*)
 {
     if ( controller_info.sw_version < 268 )
         throw new cDSAException( cMsg( "cDSA::GetMatrixThreshold() Cannot read matrix threshold with current DSACON32m firmware (R%d)! Please update to R268 or above.", controller_info.sw_version ) );

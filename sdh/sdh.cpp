@@ -124,7 +124,6 @@ cUnitConverter const cSDH::uc_position_meter( "position", "meter", "m", 1.0/1000
 
 
 bool cSDH::IsVirtualAxis( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
     return (iAxis >= NUMBER_OF_AXES);
@@ -140,7 +139,6 @@ std::vector<double> cSDH::SetAxisValueVector( std::vector<int> const& axes,
                                               std::vector<double> const& min_values,
                                               std::vector<double> const& max_values,
                                               char const* name )
-throw (cSDHLibraryException*)
 {
     //---------------------
     // Check parameters:
@@ -254,7 +252,6 @@ std::vector<double> cSDH::GetAxisValueVector( std::vector<int> const& axes,
                                               pGetFunction ll_get,
                                               cUnitConverter const* uc,
                                               char const* name )
-    throw (cSDHLibraryException*)
 {
 
     //---------------------
@@ -493,7 +490,6 @@ cSDH::~cSDH()
 
 
 std::vector<int> cSDH::ToIndexVector( int index, std::vector<int>& all_replacement, int maxindex, char const* name )
-    throw (cSDHLibraryException*)
 {
     if (index == All)
     {
@@ -516,7 +512,6 @@ std::vector<double> cSDH::ToValueVector( double value, int length, pDoubleUnitCo
 
 //-----------------------------------------------------------------
 pSetFunction cSDH::GetMotorCurrentModeFunction( eMotorCurrentMode mode )
-    throw(cSDHLibraryException*)
 {
     switch (mode)
     {
@@ -547,7 +542,6 @@ std::vector<std::vector<double> > cSDH::_GetHandXYZ( double angles )
 
 //-----------------------------------------------------------------
 std::vector<double> cSDH::_GetFingerXYZ( int fi, std::vector<double> r_angles )
-    throw(cSDHLibraryException*)
 {
     std::vector<double> rv(3,0.0);
 
@@ -612,7 +606,6 @@ void cSDH::UseDegrees( void )
 
 
 int cSDH::GetFingerNumberOfAxes( int iFinger )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
     return finger_number_of_axes[iFinger];
@@ -621,7 +614,6 @@ int cSDH::GetFingerNumberOfAxes( int iFinger )
 
 
 int cSDH::GetFingerAxisIndex( int iFinger, int iFingerAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
     CheckIndex( iFingerAxis, NUMBER_OF_AXES_PER_FINGER, "finger axis" );
@@ -646,7 +638,6 @@ char const* cSDH::GetLibraryName( void )
 
 
 char const* cSDH::GetFirmwareRelease( void )
-    throw (cSDHLibraryException*)
 {
     if ( ! comm_interface.IsOpen() )
         throw new cSDHErrorCommunication( "No connection to SDH" );
@@ -662,14 +653,12 @@ char const* cSDH::GetFirmwareReleaseRecommended( void )
 //----------------------------------------------------------------------
 
 bool cSDH::CheckFirmwareRelease( void )
-throw (cSDHLibraryException*)
 {
     return ! strcmp( GetFirmwareRelease(), GetFirmwareReleaseRecommended() );
 }
 //----------------------------------------------------------------------
 
 char const* cSDH::GetInfo( char const* what )
-throw (cSDHLibraryException*)
 {
     cdbg << "GetInfo: " << what << " is requested\n";
 
@@ -703,7 +692,6 @@ throw (cSDHLibraryException*)
 
 
 std::vector<double> cSDH::GetTemperature( std::vector<int> const& sensors )
-    throw (cSDHLibraryException*)
 {
     cSimpleVector temperatures_axes = comm_interface.temp();
     cSimpleVector temperatures_electronics = comm_interface.temp_electronics();
@@ -727,7 +715,6 @@ std::vector<double> cSDH::GetTemperature( std::vector<int> const& sensors )
 
 
 double cSDH::GetTemperature( int iSensor )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iSensor, NUMBER_OF_TEMPERATURE_SENSORS, "temperature sensor" );
 
@@ -744,7 +731,6 @@ double cSDH::GetTemperature( int iSensor )
 
 
 void cSDH::OpenRS232(  int _port, unsigned long _baudrate, double _timeout, char const* _device_format_string )
-    throw (cSDHLibraryException*)
 {
     //---------------------
     // Try to create a cSDHSerial object and save as member comm_interface:
@@ -766,7 +752,6 @@ void cSDH::OpenRS232(  int _port, unsigned long _baudrate, double _timeout, char
 //----------------------------------------------------------------------
 
 void cSDH::OpenCAN_ESD(  int _net,  unsigned long _baudrate, double _timeout, Int32 _id_read, Int32 _id_write )
-    throw (cSDHLibraryException*)
 {
 #if WITH_ESD_CAN
     //---------------------
@@ -795,7 +780,6 @@ void cSDH::OpenCAN_ESD(  int _net,  unsigned long _baudrate, double _timeout, In
 //----------------------------------------------------------------------
 
 void cSDH::OpenCAN_ESD( tDeviceHandle _ntcan_handle, double _timeout, Int32 _id_read, Int32 _id_write )
-    throw (cSDHLibraryException*)
 {
 #if WITH_ESD_CAN
     //---------------------
@@ -824,7 +808,6 @@ void cSDH::OpenCAN_ESD( tDeviceHandle _ntcan_handle, double _timeout, Int32 _id_
 //----------------------------------------------------------------------
 
 void cSDH::OpenCAN_PEAK( unsigned long _baudrate, double _timeout, Int32 _id_read, Int32 _id_write, char const* _device )
-    throw (cSDHLibraryException*)
 {
 #if WITH_PEAK_CAN
     //---------------------
@@ -853,7 +836,6 @@ void cSDH::OpenCAN_PEAK( unsigned long _baudrate, double _timeout, Int32 _id_rea
 //----------------------------------------------------------------------
 
 void cSDH::OpenCAN_PEAK( tDeviceHandle _handle, double _timeout, Int32 _id_read, Int32 _id_write )
-    throw (cSDHLibraryException*)
 {
 #if WITH_PEAK_CAN
     //---------------------
@@ -882,7 +864,6 @@ void cSDH::OpenCAN_PEAK( tDeviceHandle _handle, double _timeout, Int32 _id_read,
 //----------------------------------------------------------------------
 
 void cSDH::OpenTCP( char const* _tcp_adr, int _tcp_port, double _timeout )
-    throw (cSDHLibraryException*)
 {
     //---------------------
     // Try to create a cTCPSerial object and save as member comm_interface:
@@ -905,7 +886,6 @@ void cSDH::OpenTCP( char const* _tcp_adr, int _tcp_port, double _timeout )
 
 
 void cSDH::Close( bool leave_enabled )
-    throw (cSDHLibraryException*)
 {
     if (comm_interface.IsOpen())
     {
@@ -943,7 +923,6 @@ bool cSDH::IsOpen( void )
 
 
 void cSDH::EmergencyStop( void )
-    throw(cSDHLibraryException*)
 {
     // switch off controllers
     comm_interface.power( All, &(zeros_v[0]) );
@@ -958,7 +937,6 @@ void cSDH::EmergencyStop( void )
 
 
 void cSDH::Stop( void )
-    throw(cSDHLibraryException*)
 {
     comm_interface.stop();
 }
@@ -966,7 +944,6 @@ void cSDH::Stop( void )
 
 
 void cSDH::SetController( eControllerType controller )
-    throw(cSDHLibraryException*)
 {
     if (controller >= eCT_DIMENSION)
     {
@@ -992,7 +969,6 @@ void cSDH::SetController( eControllerType controller )
 
 
 cSDHBase::eControllerType cSDH::GetController( void  )
-    throw (cSDHLibraryException*)
 {
     if ( CompareReleases( release_firmware.c_str(), "0.0.2.6" ) < 0.0 )
     {
@@ -1008,7 +984,6 @@ cSDHBase::eControllerType cSDH::GetController( void  )
 
 
 void cSDH::SetVelocityProfile( eVelocityProfile velocity_profile )
-    throw (cSDHLibraryException*)
 {
     comm_interface.vp( velocity_profile );
 }
@@ -1016,7 +991,6 @@ void cSDH::SetVelocityProfile( eVelocityProfile velocity_profile )
 
 
 cSDHBase::eVelocityProfile cSDH::GetVelocityProfile( void )
-    throw (cSDHLibraryException*)
 {
     eVelocityProfile evp = (eVelocityProfile) comm_interface.vp();
     return evp;
@@ -1026,7 +1000,6 @@ cSDHBase::eVelocityProfile cSDH::GetVelocityProfile( void )
 
 
 void cSDH::SetAxisMotorCurrent( std::vector<int> const& axes, std::vector<double> const& motor_currents, eMotorCurrentMode mode )
-    throw (cSDHLibraryException*)
 {
     SetAxisValueVector( axes, motor_currents,
                         GetMotorCurrentModeFunction( mode ),
@@ -1039,7 +1012,6 @@ void cSDH::SetAxisMotorCurrent( std::vector<int> const& axes, std::vector<double
 
 
 void cSDH::SetAxisMotorCurrent( int iAxis, double motor_current, eMotorCurrentMode mode )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes = ToIndexVector( iAxis, all_axes, nb_all_axes, "axis" );
     // now axes is a vector of all axis indices to access
@@ -1060,7 +1032,6 @@ void cSDH::SetAxisMotorCurrent( int iAxis, double motor_current, eMotorCurrentMo
 
 
 std::vector<double> cSDH::GetAxisMotorCurrent( std::vector<int> const& axes, eMotorCurrentMode mode )
-    throw (cSDHLibraryException*)
 {
     return GetAxisValueVector( axes,
                                GetMotorCurrentModeFunction( mode ),
@@ -1071,7 +1042,6 @@ std::vector<double> cSDH::GetAxisMotorCurrent( std::vector<int> const& axes, eMo
 
 
 double cSDH::GetAxisMotorCurrent( int iAxis, eMotorCurrentMode mode )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1083,7 +1053,6 @@ double cSDH::GetAxisMotorCurrent( int iAxis, eMotorCurrentMode mode )
 
 
 void cSDH::SetAxisEnable( std::vector<int> const& axes, std::vector<double> const& states )
-    throw (cSDHLibraryException*)
 {
     SetAxisValueVector( axes, states,
                         &cSDHSerial::power,
@@ -1096,7 +1065,6 @@ void cSDH::SetAxisEnable( std::vector<int> const& axes, std::vector<double> cons
 
 
 void cSDH::SetAxisEnable( int iAxis, double state )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes = ToIndexVector( iAxis, all_axes, nb_all_axes, "axis" );
     // now axes is a list of all axis indices to access
@@ -1115,7 +1083,6 @@ void cSDH::SetAxisEnable( int iAxis, double state )
 
 
 void cSDH::SetAxisEnable( std::vector<int> const& axes, std::vector<bool> const& states )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> dstates( states.size(), 0.0 );
     std::vector<bool>::const_iterator bi;
@@ -1131,7 +1098,6 @@ void cSDH::SetAxisEnable( std::vector<int> const& axes, std::vector<bool> const&
 
 
 void cSDH::SetAxisEnable( int iAxis, bool state )
-    throw (cSDHLibraryException*)
 {
     SetAxisEnable( iAxis, state ? 1.0 : 0.0 );
 }
@@ -1140,7 +1106,6 @@ void cSDH::SetAxisEnable( int iAxis, bool state )
 
 
 std::vector<double> cSDH::GetAxisEnable( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     return GetAxisValueVector( axes,
                                &cSDHSerial::power,
@@ -1151,7 +1116,6 @@ std::vector<double> cSDH::GetAxisEnable( std::vector<int> const& axes )
 
 
 double cSDH::GetAxisEnable( int iAxis )
-    throw(cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1161,7 +1125,6 @@ double cSDH::GetAxisEnable( int iAxis )
 
 
 std::vector<cSDH::eAxisState> cSDH::GetAxisActualState( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> fstates = GetAxisValueVector( axes,
                                                       &cSDHSerial::state,
@@ -1183,7 +1146,6 @@ std::vector<cSDH::eAxisState> cSDH::GetAxisActualState( std::vector<int> const& 
 
 
 cSDH::eAxisState cSDH::GetAxisActualState( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1194,7 +1156,6 @@ cSDH::eAxisState cSDH::GetAxisActualState( int iAxis )
 
 
 void cSDH::WaitAxis( std::vector<int> const& axes, double timeout )
-    throw (cSDHLibraryException*)
 {
     cSimpleTime start_time;
     bool finished;
@@ -1229,7 +1190,6 @@ void cSDH::WaitAxis( std::vector<int> const& axes, double timeout )
 
 
 void cSDH::WaitAxis( int iAxis, double timeout )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes;
 
@@ -1247,7 +1207,6 @@ void cSDH::WaitAxis( int iAxis, double timeout )
 
 
 void cSDH::SetAxisTargetAngle( std::vector<int> const& axes, std::vector<double> const& angles )
-    throw (cSDHLibraryException*)
 {
     SetAxisValueVector( axes, angles,
                         &cSDHSerial::p,
@@ -1260,7 +1219,6 @@ void cSDH::SetAxisTargetAngle( std::vector<int> const& axes, std::vector<double>
 
 
 void cSDH::SetAxisTargetAngle( int iAxis, double angle )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes = ToIndexVector( iAxis, all_axes, nb_all_axes, "axis" );
     // now axes is a vector of all axis indices to access
@@ -1279,7 +1237,6 @@ void cSDH::SetAxisTargetAngle( int iAxis, double angle )
 
 
 std::vector<double> cSDH::SetAxisTargetGetAxisActualAngle( std::vector<int> const& axes, std::vector<double> const& angles )
-throw (cSDHLibraryException*)
 {
     return SetAxisValueVector( axes, angles,
                                &cSDHSerial::tpap,
@@ -1292,7 +1249,6 @@ throw (cSDHLibraryException*)
 
 
 std::vector<double> cSDH::GetAxisTargetAngle( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     return GetAxisValueVector( axes,
                                &cSDHSerial::p,
@@ -1303,7 +1259,6 @@ std::vector<double> cSDH::GetAxisTargetAngle( std::vector<int> const& axes )
 
 
 double cSDH::GetAxisTargetAngle( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1313,7 +1268,6 @@ double cSDH::GetAxisTargetAngle( int iAxis )
 
 
 std::vector<double> cSDH::GetAxisActualAngle( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     return GetAxisValueVector( axes,
                                &cSDHSerial::pos,
@@ -1324,7 +1278,6 @@ std::vector<double> cSDH::GetAxisActualAngle( std::vector<int> const& axes )
 
 
 double cSDH::GetAxisActualAngle( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1334,7 +1287,6 @@ double cSDH::GetAxisActualAngle( int iAxis )
 
 
 void cSDH::SetAxisTargetVelocity( std::vector<int> const& axes, std::vector<double> const& velocities )
-    throw (cSDHLibraryException*)
 {
     SetAxisValueVector( axes, velocities,
                         &cSDHSerial::v,
@@ -1347,7 +1299,6 @@ void cSDH::SetAxisTargetVelocity( std::vector<int> const& axes, std::vector<doub
 
 
 void cSDH::SetAxisTargetVelocity( int iAxis, double velocity )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes = ToIndexVector( iAxis, all_axes, nb_all_axes, "axis" );
     // now axes is a vector of all axis indices to access
@@ -1365,7 +1316,6 @@ void cSDH::SetAxisTargetVelocity( int iAxis, double velocity )
 //----------------------------------------------------------------------
 
 std::vector<double> cSDH::SetAxisTargetGetAxisActualVelocity( std::vector<int> const& axes, std::vector<double> const& velocities )
-throw (cSDHLibraryException*)
 {
     return SetAxisValueVector( axes, velocities,
                                &cSDHSerial::tvav,
@@ -1377,7 +1327,6 @@ throw (cSDHLibraryException*)
 //----------------------------------------------------------------------
 
 std::vector<double> cSDH::GetAxisTargetVelocity( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     return GetAxisValueVector( axes,
                                &cSDHSerial::v,
@@ -1388,7 +1337,6 @@ std::vector<double> cSDH::GetAxisTargetVelocity( std::vector<int> const& axes )
 
 
 double cSDH::GetAxisTargetVelocity( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1398,7 +1346,6 @@ double cSDH::GetAxisTargetVelocity( int iAxis )
 
 
 std::vector<double> cSDH::GetAxisLimitVelocity( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     if ( CompareReleases( release_firmware.c_str(), "0.0.2.1" ) < 0 )
     {
@@ -1425,7 +1372,6 @@ std::vector<double> cSDH::GetAxisLimitVelocity( std::vector<int> const& axes )
 
 
 std::vector<double> cSDH::GetAxisLimitAcceleration( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     if ( CompareReleases( release_firmware.c_str(), "0.0.2.7" ) < 0 )
     {
@@ -1453,7 +1399,6 @@ std::vector<double> cSDH::GetAxisLimitAcceleration( std::vector<int> const& axes
 
 
 double cSDH::GetAxisLimitVelocity( int iAxis )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes( 1, iAxis );
 
@@ -1463,7 +1408,6 @@ double cSDH::GetAxisLimitVelocity( int iAxis )
 
 
 double cSDH::GetAxisLimitAcceleration( int iAxis )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes( 1, iAxis );
 
@@ -1473,7 +1417,6 @@ double cSDH::GetAxisLimitAcceleration( int iAxis )
 
 
 std::vector<double> cSDH::GetAxisActualVelocity( std::vector<int>const& axes )
-    throw (cSDHLibraryException*)
 {
     return GetAxisValueVector( axes,
                                &cSDHSerial::vel,
@@ -1484,7 +1427,6 @@ std::vector<double> cSDH::GetAxisActualVelocity( std::vector<int>const& axes )
 
 
 double cSDH::GetAxisActualVelocity( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1494,7 +1436,6 @@ double cSDH::GetAxisActualVelocity( int iAxis )
 
 
 std::vector<double> cSDH::GetAxisReferenceVelocity( std::vector<int>const& axes )
-    throw (cSDHLibraryException*)
 {
     return GetAxisValueVector( axes,
                                &cSDHSerial::rvel,
@@ -1505,7 +1446,6 @@ std::vector<double> cSDH::GetAxisReferenceVelocity( std::vector<int>const& axes 
 
 
 double cSDH::GetAxisReferenceVelocity( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1515,7 +1455,6 @@ double cSDH::GetAxisReferenceVelocity( int iAxis )
 
 
 void cSDH::SetAxisTargetAcceleration( std::vector<int>const& axes, std::vector<double>const& accelerations )
-    throw (cSDHLibraryException*)
 {
     SetAxisValueVector( axes, accelerations,
                         &cSDHSerial::a,
@@ -1528,7 +1467,6 @@ void cSDH::SetAxisTargetAcceleration( std::vector<int>const& axes, std::vector<d
 
 
 void cSDH::SetAxisTargetAcceleration( int iAxis, double acceleration )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes = ToIndexVector( iAxis, all_axes, nb_all_axes, "axis" );
     // now axes is a vector of all axis indices to access
@@ -1547,7 +1485,6 @@ void cSDH::SetAxisTargetAcceleration( int iAxis, double acceleration )
 
 
 std::vector<double> cSDH::GetAxisTargetAcceleration( std::vector<int>const& axes )
-    throw (cSDHLibraryException*)
 {
     return GetAxisValueVector( axes,
                                &cSDHSerial::a,
@@ -1558,7 +1495,6 @@ std::vector<double> cSDH::GetAxisTargetAcceleration( std::vector<int>const& axes
 
 
 double cSDH::GetAxisTargetAcceleration( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1568,7 +1504,6 @@ double cSDH::GetAxisTargetAcceleration( int iAxis )
 
 
 std::vector<double> cSDH::GetAxisMinAngle( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> rv( axes.size(), 0.0 );
 
@@ -1588,7 +1523,6 @@ std::vector<double> cSDH::GetAxisMinAngle( std::vector<int> const& axes )
 
 
 double cSDH::GetAxisMinAngle( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1598,7 +1532,6 @@ double cSDH::GetAxisMinAngle( int iAxis )
 
 
 std::vector<double> cSDH::GetAxisMaxAngle( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> rv( axes.size(), 0.0 );
 
@@ -1618,7 +1551,6 @@ std::vector<double> cSDH::GetAxisMaxAngle( std::vector<int> const& axes )
 
 
 double cSDH::GetAxisMaxAngle( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1628,7 +1560,6 @@ double cSDH::GetAxisMaxAngle( int iAxis )
 
 
 std::vector<double> cSDH::GetAxisMaxVelocity( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> rv( axes.size(), 0.0 );
 
@@ -1648,7 +1579,6 @@ std::vector<double> cSDH::GetAxisMaxVelocity( std::vector<int> const& axes )
 
 
 double cSDH::GetAxisMaxVelocity( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1658,7 +1588,6 @@ double cSDH::GetAxisMaxVelocity( int iAxis )
 
 
 std::vector<double> cSDH::GetAxisMaxAcceleration( std::vector<int> const& axes )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> rv( axes.size(), 0.0 );
 
@@ -1678,7 +1607,6 @@ std::vector<double> cSDH::GetAxisMaxAcceleration( std::vector<int> const& axes )
 
 
 double cSDH::GetAxisMaxAcceleration( int iAxis )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iAxis, nb_all_axes, "axis" );
 
@@ -1688,7 +1616,6 @@ double cSDH::GetAxisMaxAcceleration( int iAxis )
 
 
 void cSDH::SetFingerEnable( std::vector<int> const& fingers, std::vector<double> const& states )
-    throw (cSDHLibraryException*)
 {
 #if SDH_USE_VCC
     // VCC does not know nan to create a NAN value
@@ -1734,7 +1661,6 @@ void cSDH::SetFingerEnable( std::vector<int> const& fingers, std::vector<double>
 
 
 void cSDH::SetFingerEnable( std::vector<int> const& fingers, std::vector<bool> const& states )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> dstates( states.size(), 0.0 );
     std::vector<bool>::const_iterator bi;
@@ -1751,7 +1677,6 @@ void cSDH::SetFingerEnable( std::vector<int> const& fingers, std::vector<bool> c
 
 
 void cSDH::SetFingerEnable( int iFinger, double state )
-    throw (cSDHLibraryException*)
 {
     std::vector<int> axes;
 
@@ -1780,7 +1705,6 @@ void cSDH::SetFingerEnable( int iFinger, double state )
 
 
 void cSDH::SetFingerEnable( int iFinger, bool state )
-    throw (cSDHLibraryException*)
 {
     SetFingerEnable( iFinger, state ? 1.0 : 0.0 );
 }
@@ -1788,7 +1712,6 @@ void cSDH::SetFingerEnable( int iFinger, bool state )
 
 
 std::vector<double> cSDH::GetFingerEnable( std::vector<int> const& fingers )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> rv;
 
@@ -1823,7 +1746,6 @@ std::vector<double> cSDH::GetFingerEnable( std::vector<int> const& fingers )
 
 
 double cSDH::GetFingerEnable( int iFinger )
-    throw (cSDHLibraryException*)
 {
     return GetFingerEnable( std::vector<int>( 1, iFinger ) )[0];
 }
@@ -1831,7 +1753,6 @@ double cSDH::GetFingerEnable( int iFinger )
 
 
 void cSDH::SetFingerTargetAngle( int iFinger, std::vector<double> const& angles )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1841,7 +1762,6 @@ void cSDH::SetFingerTargetAngle( int iFinger, std::vector<double> const& angles 
 
 
 void cSDH::SetFingerTargetAngle( int iFinger, double a0, double a1, double a2 )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1855,7 +1775,6 @@ void cSDH::SetFingerTargetAngle( int iFinger, double a0, double a1, double a2 )
 
 
 std::vector<double> cSDH::GetFingerTargetAngle( int iFinger )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1865,7 +1784,6 @@ std::vector<double> cSDH::GetFingerTargetAngle( int iFinger )
 
 
 void cSDH::GetFingerTargetAngle( int iFinger, double& a0, double& a1, double& a2 )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1878,7 +1796,6 @@ void cSDH::GetFingerTargetAngle( int iFinger, double& a0, double& a1, double& a2
 
 
 std::vector<double> cSDH::GetFingerActualAngle( int iFinger )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1888,7 +1805,6 @@ std::vector<double> cSDH::GetFingerActualAngle( int iFinger )
 
 
 void cSDH::GetFingerActualAngle( int iFinger, double& a0, double& a1, double& a2 )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1901,7 +1817,6 @@ void cSDH::GetFingerActualAngle( int iFinger, double& a0, double& a1, double& a2
 
 
 std::vector<double> cSDH::GetFingerMinAngle( int iFinger )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1911,7 +1826,6 @@ std::vector<double> cSDH::GetFingerMinAngle( int iFinger )
 
 
 void cSDH::GetFingerMinAngle( int iFinger, double& a0, double& a1, double& a2 )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1924,7 +1838,6 @@ void cSDH::GetFingerMinAngle( int iFinger, double& a0, double& a1, double& a2 )
 
 
 std::vector<double> cSDH::GetFingerMaxAngle( int iFinger )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1934,7 +1847,6 @@ std::vector<double> cSDH::GetFingerMaxAngle( int iFinger )
 
 
 void cSDH::GetFingerMaxAngle( int iFinger, double& a0, double& a1, double& a2 )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1947,7 +1859,6 @@ void cSDH::GetFingerMaxAngle( int iFinger, double& a0, double& a1, double& a2 )
 
 
 std::vector<double> cSDH::GetFingerXYZ( int iFinger, std::vector<double> const& angles )
-    throw (cSDHLibraryException*)
 {
     CheckIndex( iFinger, NUMBER_OF_FINGERS, "finger" );
 
@@ -1973,7 +1884,6 @@ std::vector<double> cSDH::GetFingerXYZ( int iFinger, std::vector<double> const& 
 
 
 std::vector<double> cSDH::GetFingerXYZ( int iFinger, double a0, double a1, double a2 )
-    throw (cSDHLibraryException*)
 {
     std::vector<double> a012;
     a012.push_back( a0 );
@@ -1986,7 +1896,6 @@ std::vector<double> cSDH::GetFingerXYZ( int iFinger, double a0, double a1, doubl
 
 
 double cSDH::MoveAxis( std::vector<int>const& axes, bool sequ )
-    throw (cSDHLibraryException*)
 {
     // save currently set target axis angles of all axes in external units
     std::vector<double> t_angles = GetAxisTargetAngle( all_axes );
@@ -2046,7 +1955,6 @@ double cSDH::MoveAxis( std::vector<int>const& axes, bool sequ )
 
 
 double cSDH::MoveAxis( int iAxis, bool sequ )
-    throw (cSDHLibraryException*)
 {
     if ( iAxis==All )
         return MoveAxis( all_axes, sequ );
@@ -2057,7 +1965,6 @@ double cSDH::MoveAxis( int iAxis, bool sequ )
 
 
 double cSDH::MoveFinger( std::vector<int>const& fingers, bool sequ )
-    throw (cSDHLibraryException*)
 {
     // save currently set target axis angles of all axes in external units
     std::vector<double> t_angles = GetAxisTargetAngle( all_axes );
@@ -2120,7 +2027,6 @@ double cSDH::MoveFinger( std::vector<int>const& fingers, bool sequ )
 
 
 double cSDH::MoveFinger( int iFinger, bool sequ )
-    throw (cSDHLibraryException*)
 {
     if ( iFinger==All )
         return MoveFinger( all_fingers, sequ );
@@ -2131,7 +2037,6 @@ double cSDH::MoveFinger( int iFinger, bool sequ )
 
 
 double cSDH::MoveHand( bool sequ )
-    throw(cSDHLibraryException*)
 {
     return MoveFinger( all_fingers, sequ );
 }
@@ -2146,7 +2051,6 @@ double cSDH::GetGripMaxVelocity( void )
 
 
 double cSDH::GripHand( eGraspId grip, double close, double velocity, bool sequ )
-    throw (cSDHLibraryException*)
 {
     CheckRange( close, 0.0, 1.0, "open/close ratio" );
     CheckRange( velocity, 0.0, grip_max_velocity, "grip velocity" );

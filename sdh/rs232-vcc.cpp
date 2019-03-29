@@ -113,7 +113,6 @@ cRS232::~cRS232(void)
 #ifndef RS_232_TEST
 
 void cRS232::Open( void )
-    throw (cRS232Exception*)
 {
     // see e.g. http://msdn.microsoft.com/de-de/magazine/cc301786(en-us).aspx
     //
@@ -176,14 +175,12 @@ void cRS232::Open( void )
 }
 
 void cRS232::Close()
-    throw (cRS232Exception*)
 {
     CloseHandle(_hCOM);
     _hCOM = INVALID_HANDLE_VALUE;
 }
 
 void cRS232::SetTimeout( double _timeout )
-    throw (cSerialBaseException*)
 {
   DBG( dbg << "cRS232-vcc::SetTimeout( " << _timeout << ")\n" );
   if ( _hCOM != INVALID_HANDLE_VALUE )
@@ -221,7 +218,6 @@ void cRS232::SetTimeout( double _timeout )
 }
 
 ssize_t cRS232::Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data )
-    throw (cRS232Exception*)
 {
     char* buffer = (char*) data;
     cSerialBase::cSetTimeoutTemporarily set_timeout_temporarily( this, double( timeout_us ) / 1000000.0 );
@@ -294,7 +290,6 @@ ssize_t cRS232::Read( void *data, ssize_t size, long timeout_us, bool return_on_
 }
 
 char* cRS232::readline(char* line, int size, char* eol, bool return_on_less_data)
-    throw (cRS232Exception*)
 {
     memset(line, 0, size*sizeof(char));
     DWORD offset=0;
@@ -351,7 +346,6 @@ char* cRS232::readline(char* line, int size, char* eol, bool return_on_less_data
 }
 
 int cRS232::write(char const *ptr, int len)
-    throw (cRS232Exception*)
 {
     if(len == 0)
         len = static_cast<int>(strlen(ptr));
@@ -381,18 +375,15 @@ int cRS232::write(char const *ptr, int len)
 #else
 
 void cRS232::Open(int port, unsigned long baudrate, double timeout)
-    throw (cRS232Exception*)
 {
     _timeout = timeout;
 }
 
 void cRS232::Close()
-    throw (cRS232Exception*)
 {
 }
 
 char* cRS232::readline(char* line, int size, char* eol, bool return_on_less_data)
-    throw (cRS232Exception*)
 {
     std::cout << "EOL size=" << strlen(eol) << std::endl;
     if(return_on_less_data)
@@ -402,7 +393,6 @@ char* cRS232::readline(char* line, int size, char* eol, bool return_on_less_data
 }
 
 int cRS232::write(char const *ptr, int len)
-    throw (cRS232Exception*)
 {
     if(len == 0)
         len = strlen( ptr );

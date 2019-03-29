@@ -138,20 +138,17 @@ class VCC_EXPORT cSerialBase
     /*!
       Open the device with the parameters provided in the constructor
     */
-    virtual void Open( void )
-        throw (cSerialBaseException*) = 0;
+    virtual void Open( void ) = 0;
 
     //! Return true if communication channel is open
     virtual bool IsOpen( void )
         throw() = 0;
 
     //! Close the previously opened communication channel.
-    virtual void Close( void )
-        throw (cSerialBaseException*) = 0;
+    virtual void Close( void ) = 0;
 
     //! set the timeout for next #readline() calls (negative value means: no timeout, wait for ever)
     virtual void SetTimeout( double _timeout )
-        throw (cSerialBaseException*)
     {
         timeout = _timeout;
     }
@@ -195,8 +192,7 @@ class VCC_EXPORT cSerialBase
 
       \return the number of bytes actually written
     */
-    virtual int write( char const *ptr, int len=0 )
-        throw (cSerialBaseException*) = 0;
+    virtual int write( char const *ptr, int len=0 ) = 0;
 
     /*!
       Read data from device. This function waits until \a max_time_us us passed or
@@ -206,8 +202,7 @@ class VCC_EXPORT cSerialBase
       If the \a return_on_less_data is false, data is only read from serial line, if at least
       \a size bytes are available.
     */
-    virtual ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data )
-        throw (cSerialBaseException*) = 0;
+    virtual ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data ) = 0;
 
     //! Read a line from the device.
     /*!
@@ -226,8 +221,7 @@ class VCC_EXPORT cSerialBase
       A pointer to the line read is returned.
 
     */
-    virtual char* readline( char* line, int size, char const* eol = "\n", bool return_on_less_data = false )
-        throw (cSerialBaseException*);
+    virtual char* readline( char* line, int size, char const* eol = "\n", bool return_on_less_data = false );
 
     //! A stream object to print colored debug messages
     cDBG dbg;

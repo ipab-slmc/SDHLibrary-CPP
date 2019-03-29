@@ -114,7 +114,6 @@ long const cTCPSerial::TIMEOUT_RETURN_IMMEDITELY_US  =  0;
 
 
 cTCPSerial::cTCPSerial( char const* _tcp_adr, int _tcp_port, double _timeout )
-    throw (cTCPSerialException*)
 {
 #if SDH_USE_VCC
     static WSADATA wsa;
@@ -136,7 +135,6 @@ cTCPSerial::cTCPSerial( char const* _tcp_adr, int _tcp_port, double _timeout )
 
 
 void cTCPSerial::Open( void )
-    throw (cTCPSerialException*)
 {
     struct hostent *host;
     struct sockaddr_in addr;
@@ -198,7 +196,6 @@ bool cTCPSerial::IsOpen( void )
 
 
 void cTCPSerial::Close( void )
-    throw (cTCPSerialException*)
 {
     if ( !IsOpen() )
         throw new cTCPSerialException( cMsg( "Could not close un-opened TCP socket" ) );
@@ -215,7 +212,6 @@ void cTCPSerial::Close( void )
 //----------------------------------------------------------------------
 
 int cTCPSerial::write( char const *ptr, int len )
-    throw (cTCPSerialException*)
 {
     assert( IsOpen() );
 
@@ -242,7 +238,6 @@ int cTCPSerial::write( char const *ptr, int len )
 
 
 ssize_t cTCPSerial::Read( void *_data, ssize_t size, long _timeout_us, bool return_on_less_data )
-    throw (cTCPSerialException*)
 {
     assert( IsOpen() );
 
@@ -334,7 +329,6 @@ ssize_t cTCPSerial::Read( void *_data, ssize_t size, long _timeout_us, bool retu
 
 
 void cTCPSerial::SetTimeout( double _timeout )
-    throw (cSerialBaseException*)
 {
     DBG( dbg << "cTCPSerial::SetTimeout(): " << _timeout << "\n" );
 

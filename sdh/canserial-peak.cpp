@@ -158,7 +158,6 @@ NAMESPACE_SDH_END
 
 
 cCANSerial_PEAK::cCANSerial_PEAK( unsigned long _baudrate, double _timeout, int _id_read, int _id_write, const char *device )
-   throw (cCANSerial_PEAKException*)
 {
     pimpl = NULL;
     assert( sizeof( PCAN_HANDLE ) == sizeof( tDeviceHandle) ); // if this fails, please adjust the tDeviceHandle type
@@ -179,7 +178,6 @@ cCANSerial_PEAK::cCANSerial_PEAK( unsigned long _baudrate, double _timeout, int 
 //----------------------------------------------------------------------
 
 cCANSerial_PEAK::cCANSerial_PEAK( PCAN_HANDLE _peak_handle, double _timeout, int _id_read, int _id_write )
-   throw (cCANSerial_PEAKException*)
 {
    pimpl = NULL;
    if ( _timeout < 0.0 )
@@ -234,7 +232,6 @@ char const* PEAK_strerror( DWORD rc )
 
 
 void cCANSerial_PEAK::Open( void )
-   throw (cCANSerial_PEAKException*)
 {
     if (pimpl->peak_handle == NULL)
     {
@@ -300,7 +297,6 @@ bool cCANSerial_PEAK::IsOpen( void )
 
 
 void cCANSerial_PEAK::Close( void )
-   throw (cCANSerial_PEAKException*)
 {
    if ( pimpl->peak_handle == NULL )
        throw new cCANSerial_PEAKException( cMsg( "Could not close un-opened device" ) );
@@ -311,7 +307,6 @@ void cCANSerial_PEAK::Close( void )
 //----------------------------------------------------------------------
 
 int cCANSerial_PEAK::BaudrateToBaudrateCode( unsigned long baudrate )
-   throw (cCANSerial_PEAKException*)
 {
    switch (baudrate)
    {
@@ -332,7 +327,6 @@ int cCANSerial_PEAK::BaudrateToBaudrateCode( unsigned long baudrate )
 //----------------------------------------------------------------------
 
 int cCANSerial_PEAK::write( char const *ptr, int len )
-throw (cCANSerial_PEAKException*)
 {
     assert( pimpl->peak_handle != NULL );
 
@@ -379,7 +373,6 @@ throw (cCANSerial_PEAKException*)
 
 
 ssize_t cCANSerial_PEAK::Read( void *_data, ssize_t size, long r_timeout_us, bool return_on_less_data )
-throw (cCANSerial_PEAKException*)
 {
     assert( pimpl->peak_handle != NULL );
 
@@ -512,7 +505,6 @@ throw (cCANSerial_PEAKException*)
 
 
 void cCANSerial_PEAK::SetTimeout( double _timeout )
-throw (cSerialBaseException*)
 {
     cSerialBase::SetTimeout( _timeout );
 #if defined( OSNAME_LINUX )

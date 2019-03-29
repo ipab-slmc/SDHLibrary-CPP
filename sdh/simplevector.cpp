@@ -64,7 +64,6 @@ USING_NAMESPACE_SDH
 
 
 cSimpleVector::cSimpleVector()
-    throw (cSimpleVectorException*)
 {
     for ( int i=0; i < eNUMBER_OF_ELEMENTS; i++ )
         value[ i ] = 0.0;
@@ -74,14 +73,12 @@ cSimpleVector::cSimpleVector()
 
 
 cSimpleVector::cSimpleVector( int nb_values, char const* str )
-    throw (cSimpleVectorException*)
 {
     FromString( nb_values, 0, str );
 }
 //-----------------------------------------------------------------
 
 cSimpleVector::cSimpleVector( int nb_values, int start_index, float* values )
-    throw (cSimpleVectorException*)
 {
     valid = 0;
     int mask = (1<<start_index);
@@ -96,7 +93,6 @@ cSimpleVector::cSimpleVector( int nb_values, int start_index, float* values )
 
 
 cSimpleVector::cSimpleVector( int nb_values, int start_index, char const* str )
-    throw (cSimpleVectorException*)
 {
     FromString( nb_values, start_index, str );
 }
@@ -104,7 +100,6 @@ cSimpleVector::cSimpleVector( int nb_values, int start_index, char const* str )
 
 
 void cSimpleVector::FromString( int nb_values, int start_index, char const* str )
-    throw (cSimpleVectorException*)
 {
     assert( start_index + nb_values <= eNUMBER_OF_ELEMENTS );
 

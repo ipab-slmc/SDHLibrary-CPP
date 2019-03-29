@@ -435,8 +435,7 @@ protected:
                                             cUnitConverter const* uc,
                                             std::vector<double> const& min_values,
                                             std::vector<double> const& max_values,
-                                            char const* name )
-                                            throw (cSDHLibraryException*);
+                                            char const* name );
 
 
     //----------------------------------------------------------------------
@@ -463,8 +462,7 @@ protected:
     std::vector<double> GetAxisValueVector( std::vector<int> const& axes,
                                             pGetFunction ll_get,
                                             cUnitConverter const* uc,
-                                            char const* name )
-        throw (cSDHLibraryException*);
+                                            char const* name );
 
     //-----------------------------------------------------------------
     /*!
@@ -482,8 +480,7 @@ protected:
           only \a index.
         - In case \a index exceeds \a maxindex a (cSDHErrorInvalidParameter*) exception is thrown.
     */
-    std::vector<int> ToIndexVector( int index, std::vector<int>& all_replacement, int maxindex, char const* name )
-        throw (cSDHLibraryException*);
+    std::vector<int> ToIndexVector( int index, std::vector<int>& all_replacement, int maxindex, char const* name );
 
 
     //-----------------------------------------------------------------
@@ -492,16 +489,14 @@ protected:
         comm_interface object that is responsible for setting/getting
         motor currents in \a mode.
     */
-    pSetFunction GetMotorCurrentModeFunction( eMotorCurrentMode mode )
-        throw(cSDHLibraryException*);
+    pSetFunction GetMotorCurrentModeFunction( eMotorCurrentMode mode );
 
 
     //-----------------------------------------------------------------
     /*!
         return cartesian [x,y,z] position in mm of fingertip for finger fi at angles r_angles (rad)
     */
-    std::vector<double> _GetFingerXYZ( int fi, std::vector<double> r_angles )
-        throw(cSDHLibraryException*);
+    std::vector<double> _GetFingerXYZ( int fi, std::vector<double> r_angles );
 
 
     //  end of doxygen name group sdhlibrary_cpp_sdh_h_csdh_internal
@@ -700,8 +695,7 @@ public:
 
     //----------------------------------------------------------------------
     //! Return \c true if index \a iAxis refers to a virtual axis
-    bool IsVirtualAxis( int iAxis )
-        throw (cSDHLibraryException*);
+    bool IsVirtualAxis( int iAxis );
 
     //-----------------------------------------------------------------
     /*!
@@ -767,8 +761,7 @@ public:
 
        <hr>
     */
-    int GetFingerNumberOfAxes( int iFinger )
-        throw (cSDHLibraryException*);
+    int GetFingerNumberOfAxes( int iFinger );
 
 
     //-----------------------------------------------------------------
@@ -795,8 +788,7 @@ public:
 
        <hr>
     */
-    int GetFingerAxisIndex( int iFinger, int iFingerAxis )
-        throw (cSDHLibraryException*);
+    int GetFingerAxisIndex( int iFinger, int iFingerAxis );
 
 
     //-----------------------------------------------------------------
@@ -853,8 +845,7 @@ public:
        \see See GetFirmwareReleaseRecommended() to get the recommended SDH firmware release.
        <hr>
     */
-    char const* GetFirmwareRelease( void )
-        throw (cSDHLibraryException*);
+    char const* GetFirmwareRelease( void );
 
     //-----------------------------------------------------------------
     /*!
@@ -904,8 +895,7 @@ public:
        \see See GetFirmwareReleaseRecommended() to get the recommended SDH firmware release.
        <hr>
     */
-    bool CheckFirmwareRelease( void )
-        throw (cSDHLibraryException*);
+    bool CheckFirmwareRelease( void );
 
     //-----------------------------------------------------------------
     /*! Return info according to \a what
@@ -936,8 +926,7 @@ public:
     #
     #  <hr>
     */
-    char const* GetInfo( char const* what )
-        throw (cSDHLibraryException*);
+    char const* GetInfo( char const* what );
 
     //-----------------------------------------------------------------
     /*!
@@ -992,8 +981,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetTemperature( std::vector<int> const& sensors )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetTemperature( std::vector<int> const& sensors );
 
 
     //----------------------------------------------------------------------
@@ -1001,8 +989,7 @@ public:
         Like #GetTemperature(std::vector<int>const&), just for one sensor
         \a iSensor and returning a single temperature as double.
     */
-    double GetTemperature( int iSensor )
-        throw (cSDHLibraryException*);
+    double GetTemperature( int iSensor );
 
 
     //  end of doxygen name group sdhlibrary_cpp_sdh_h_csdh_common
@@ -1053,8 +1040,7 @@ public:
 
        <hr>
     */
-    void OpenRS232(  int _port=0, unsigned long _baudrate = 115200, double _timeout=-1, char const* _device_format_string="/dev/ttyS%d" )
-        throw (cSDHLibraryException*);
+    void OpenRS232(  int _port=0, unsigned long _baudrate = 115200, double _timeout=-1, char const* _device_format_string="/dev/ttyS%d" );
 
 
     /*!
@@ -1084,8 +1070,7 @@ public:
 
        <hr>
     */
-    void OpenCAN_ESD(  int _net=0,  unsigned long _baudrate=1000000, double _timeout=0.0, Int32 _id_read=43, Int32 _id_write=42 )
-        throw (cSDHLibraryException*);
+    void OpenCAN_ESD(  int _net=0,  unsigned long _baudrate=1000000, double _timeout=0.0, Int32 _id_read=43, Int32 _id_write=42 );
 
 
     /*!
@@ -1116,8 +1101,7 @@ public:
 
        <hr>
     */
-    void OpenCAN_ESD(  tDeviceHandle _ntcan_handle, double _timeout=0.0, Int32 _id_read=43, Int32 _id_write=42 )
-        throw (cSDHLibraryException*);
+    void OpenCAN_ESD(  tDeviceHandle _ntcan_handle, double _timeout=0.0, Int32 _id_read=43, Int32 _id_write=42 );
 
 
     /*!
@@ -1147,8 +1131,7 @@ public:
 
        <hr>
     */
-    void OpenCAN_PEAK( unsigned long _baudrate=1000000, double _timeout=0.0, Int32 _id_read=43, Int32 _id_write=42, const char *_device="/dev/pcanusb0" )
-        throw (cSDHLibraryException*);
+    void OpenCAN_PEAK( unsigned long _baudrate=1000000, double _timeout=0.0, Int32 _id_read=43, Int32 _id_write=42, const char *_device="/dev/pcanusb0" );
 
 
     /*!
@@ -1179,8 +1162,7 @@ public:
 
        <hr>
     */
-    void OpenCAN_PEAK(  tDeviceHandle _handle, double _timeout=0.0, Int32 _id_read=43, Int32 _id_write=42 )
-        throw (cSDHLibraryException*);
+    void OpenCAN_PEAK(  tDeviceHandle _handle, double _timeout=0.0, Int32 _id_read=43, Int32 _id_write=42 );
 
     /*!
       Open connection to %SDH via TCP using TCP/IP address \a _tcp_adr and \a _tcp_port.
@@ -1201,8 +1183,7 @@ public:
 
        <hr>
     */
-    void OpenTCP( char const* _tcp_adr="192.168.1.1", int _tcp_port=23, double _timeout=0.0 )
-        throw (cSDHLibraryException*);
+    void OpenTCP( char const* _tcp_adr="192.168.1.1", int _tcp_port=23, double _timeout=0.0 );
 
     //-----------------------------------------------------------------
     /*!
@@ -1235,8 +1216,7 @@ public:
 
        <hr>
     */
-    void Close( bool leave_enabled=false )
-        throw (cSDHLibraryException*);
+    void Close( bool leave_enabled=false );
 
     //-----------------------------------------------------------------
     /*!
@@ -1281,8 +1261,7 @@ public:
 
        <hr>
     */
-    void EmergencyStop( void )
-        throw (cSDHLibraryException*);
+    void EmergencyStop( void );
 
 
     //-----------------------------------------------------------------
@@ -1316,8 +1295,7 @@ public:
 
        <hr>
     */
-    void Stop( void )
-        throw (cSDHLibraryException*);
+    void Stop( void );
 
 
     //-----------------------------------------------------------------
@@ -1375,8 +1353,7 @@ public:
 
        <hr>
     */
-    void SetController( cSDHBase::eControllerType controller )
-        throw( cSDHLibraryException* );
+    void SetController( cSDHBase::eControllerType controller );
 
     //-----------------------------------------------------------------
     /*!
@@ -1400,8 +1377,7 @@ public:
       <hr>
 
     */
-    eControllerType GetController( void  )
-        throw (cSDHLibraryException*);
+    eControllerType GetController( void  );
 
     //-----------------------------------------------------------------
     /*!
@@ -1424,8 +1400,7 @@ public:
 
       <hr>
     */
-    void SetVelocityProfile( eVelocityProfile velocity_profile )
-        throw (cSDHLibraryException*);
+    void SetVelocityProfile( eVelocityProfile velocity_profile );
 
 
     //-----------------------------------------------------------------
@@ -1447,8 +1422,7 @@ public:
 
       <hr>
     */
-    eVelocityProfile GetVelocityProfile( void )
-        throw (cSDHLibraryException*);
+    eVelocityProfile GetVelocityProfile( void );
 
 
     //  end of doxygen name group sdhlibrary_cpp_sdh_h_csdh_auxilliary
@@ -1537,8 +1511,7 @@ public:
 
         <hr>
     */
-    void SetAxisMotorCurrent( std::vector<int> const& axes, std::vector<double> const& motor_currents, eMotorCurrentMode mode=eMCM_MOVE )
-        throw (cSDHLibraryException*);
+    void SetAxisMotorCurrent( std::vector<int> const& axes, std::vector<double> const& motor_currents, eMotorCurrentMode mode=eMCM_MOVE );
 
 
     //----------------------------------------------------------------------
@@ -1548,8 +1521,7 @@ public:
 
         If \a iAxis is #All then \a motor_current is set for all axes.
     */
-    void SetAxisMotorCurrent( int iAxis, double motor_current, eMotorCurrentMode mode=eMCM_MOVE )
-        throw (cSDHLibraryException*);
+    void SetAxisMotorCurrent( int iAxis, double motor_current, eMotorCurrentMode mode=eMCM_MOVE );
 
 
     //-----------------------------------------------------------------
@@ -1604,8 +1576,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisMotorCurrent( std::vector<int> const& axes, eMotorCurrentMode mode=eMCM_MOVE )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisMotorCurrent( std::vector<int> const& axes, eMotorCurrentMode mode=eMCM_MOVE );
 
 
     //----------------------------------------------------------------------
@@ -1613,8 +1584,7 @@ public:
         Like #GetAxisMotorCurrent(std::vector<int>const&,eMotorCurrentMode),
         just for a single axis, see there for details and examples.
     */
-    double GetAxisMotorCurrent( int iAxis, eMotorCurrentMode mode=eMCM_MOVE )
-        throw (cSDHLibraryException*);
+    double GetAxisMotorCurrent( int iAxis, eMotorCurrentMode mode=eMCM_MOVE );
 
 
     //-----------------------------------------------------------------
@@ -1680,8 +1650,7 @@ public:
 
         <hr>
     */
-    void SetAxisEnable( std::vector<int> const& axes, std::vector<double> const& states )
-        throw (cSDHLibraryException*);
+    void SetAxisEnable( std::vector<int> const& axes, std::vector<double> const& states );
 
 
     //----------------------------------------------------------------------
@@ -1691,8 +1660,7 @@ public:
 
         If \a iAxis is #All then \a state is applied to all axes.
     */
-    void SetAxisEnable( int iAxis=All, double state=1.0 )
-        throw (cSDHLibraryException*);
+    void SetAxisEnable( int iAxis=All, double state=1.0 );
 
 
     //----------------------------------------------------------------------
@@ -1700,8 +1668,7 @@ public:
         Like #SetAxisEnable(std::vector<int>const&,std::vector<double>const&),
         just accepting a vector of \c bool values as states, see there.
     */
-    void SetAxisEnable( std::vector<int> const& axes, std::vector<bool> const& states )
-        throw (cSDHLibraryException*);
+    void SetAxisEnable( std::vector<int> const& axes, std::vector<bool> const& states );
 
 
     //----------------------------------------------------------------------
@@ -1711,8 +1678,7 @@ public:
 
         If \a iAxis is #All then \a state is applied to all axes.
     */
-    void SetAxisEnable( int iAxis=All, bool state=true )
-        throw (cSDHLibraryException*);
+    void SetAxisEnable( int iAxis=All, bool state=true );
 
 
     //-----------------------------------------------------------------
@@ -1764,8 +1730,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisEnable( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisEnable( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -1773,8 +1738,7 @@ public:
         Like #GetAxisEnable(std::vector<int>const&), just for a single
         axis \a iAxis, see there for details and examples.
     */
-    double GetAxisEnable( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisEnable( int iAxis );
 
 
     //----------------------------------------------------------------------
@@ -1823,8 +1787,7 @@ public:
 
       <hr>
     */
-    std::vector<eAxisState> GetAxisActualState( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<eAxisState> GetAxisActualState( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -1832,8 +1795,7 @@ public:
         Like #GetAxisActualState(std::vector<int>const&),
         just for a single axis \a iAxis, see there for details and examples.
     */
-    eAxisState GetAxisActualState( int iAxis )
-        throw (cSDHLibraryException*);
+    eAxisState GetAxisActualState( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -1959,8 +1921,7 @@ public:
 
        <hr>
     */
-    void WaitAxis( std::vector<int> const& axes, double timeout = -1.0 )
-        throw (cSDHLibraryException*);
+    void WaitAxis( std::vector<int> const& axes, double timeout = -1.0 );
 
 
 
@@ -1971,8 +1932,7 @@ public:
 
         If \a iAxis is #All then wait for all axes axes.
     */
-    void WaitAxis( int iAxis, double timeout = -1.0 )
-        throw (cSDHLibraryException*);
+    void WaitAxis( int iAxis, double timeout = -1.0 );
 
 
     //----------------------------------------------------------------------
@@ -2049,8 +2009,7 @@ public:
 
         <hr>
     */
-    void SetAxisTargetAngle( std::vector<int> const& axes, std::vector<double> const& angles )
-        throw (cSDHLibraryException*);
+    void SetAxisTargetAngle( std::vector<int> const& axes, std::vector<double> const& angles );
 
 
     //----------------------------------------------------------------------
@@ -2060,8 +2019,7 @@ public:
 
         If \a iAxis is #All then \a motor_current is set for all axes.
     */
-    void SetAxisTargetAngle( int iAxis, double angle )
-        throw (cSDHLibraryException*);
+    void SetAxisTargetAngle( int iAxis, double angle );
 
 
     //----------------------------------------------------------------------
@@ -2129,8 +2087,7 @@ public:
 
         <hr>
     */
-    std::vector<double> SetAxisTargetGetAxisActualAngle( std::vector<int> const& axes, std::vector<double> const& angles )
-        throw (cSDHLibraryException*);
+    std::vector<double> SetAxisTargetGetAxisActualAngle( std::vector<int> const& axes, std::vector<double> const& angles );
 
 
     //-----------------------------------------------------------------
@@ -2182,8 +2139,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisTargetAngle( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisTargetAngle( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2192,8 +2148,7 @@ public:
         axis \a iAxis and returning a single angle, see there for details and
         examples.
     */
-    double GetAxisTargetAngle( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisTargetAngle( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -2245,8 +2200,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisActualAngle( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisActualAngle( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2255,8 +2209,7 @@ public:
         axis \a iAxis and returning a single angle, see there for details and
         examples.
     */
-    double GetAxisActualAngle( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisActualAngle( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -2348,8 +2301,7 @@ public:
 
         <hr>
     */
-    void SetAxisTargetVelocity( std::vector<int> const& axes, std::vector<double> const& velocities )
-        throw (cSDHLibraryException*);
+    void SetAxisTargetVelocity( std::vector<int> const& axes, std::vector<double> const& velocities );
 
 
     //----------------------------------------------------------------------
@@ -2357,8 +2309,7 @@ public:
         Like #SetAxisTargetVelocity(std::vector<int>const&,std::vector<double>const&),
         just for a single axis \a iAxis and a single velocity \a velocity, see there for details and examples.
     */
-    void SetAxisTargetVelocity( int iAxis, double velocity )
-        throw (cSDHLibraryException*);
+    void SetAxisTargetVelocity( int iAxis, double velocity );
 
 
     //----------------------------------------------------------------------
@@ -2440,8 +2391,7 @@ public:
 
         <hr>
     */
-    std::vector<double> SetAxisTargetGetAxisActualVelocity( std::vector<int> const& axes, std::vector<double> const& velocities )
-        throw (cSDHLibraryException*);
+    std::vector<double> SetAxisTargetGetAxisActualVelocity( std::vector<int> const& axes, std::vector<double> const& velocities );
 
 
     //-----------------------------------------------------------------
@@ -2493,8 +2443,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisTargetVelocity( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisTargetVelocity( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2503,8 +2452,7 @@ public:
         axis \a iAxis and returning a single velocity, see there for details
         and examples.
     */
-    double GetAxisTargetVelocity( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisTargetVelocity( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -2556,8 +2504,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisLimitVelocity( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisLimitVelocity( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2566,8 +2513,7 @@ public:
         axis \a iAxis and returning a single velocity limit, see there for details
         and examples.
     */
-    double GetAxisLimitVelocity( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisLimitVelocity( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -2619,8 +2565,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisLimitAcceleration( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisLimitAcceleration( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2629,8 +2574,7 @@ public:
         axis \a iAxis and returning a single acceleration limit, see there for details
         and examples.
     */
-    double GetAxisLimitAcceleration( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisLimitAcceleration( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -2678,8 +2622,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisActualVelocity( std::vector<int>const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisActualVelocity( std::vector<int>const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2688,8 +2631,7 @@ public:
         axis \a iAxis and returning a single velocity, see there for details
         and examples.
     */
-    double GetAxisActualVelocity( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisActualVelocity( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -2749,8 +2691,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisReferenceVelocity( std::vector<int>const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisReferenceVelocity( std::vector<int>const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2759,8 +2700,7 @@ public:
         axis \a iAxis and returning a single velocity, see there for details
         and examples.
     */
-    double GetAxisReferenceVelocity( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisReferenceVelocity( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -2845,8 +2785,7 @@ public:
 
         <hr>
     */
-    void SetAxisTargetAcceleration( std::vector<int>const& axes, std::vector<double>const& accelerations )
-        throw (cSDHLibraryException*);
+    void SetAxisTargetAcceleration( std::vector<int>const& axes, std::vector<double>const& accelerations );
 
 
     //----------------------------------------------------------------------
@@ -2854,8 +2793,7 @@ public:
         Like #SetAxisTargetAcceleration(std::vector<int>const&,std::vector<double>const&),
         just for a single axis \a iAxis and a single acceleration \a acceleration, see there for details and examples.
     */
-    void SetAxisTargetAcceleration( int iAxis, double acceleration )
-        throw (cSDHLibraryException*);
+    void SetAxisTargetAcceleration( int iAxis, double acceleration );
 
 
     //-----------------------------------------------------------------
@@ -2907,8 +2845,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisTargetAcceleration( std::vector<int>const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisTargetAcceleration( std::vector<int>const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2917,8 +2854,7 @@ public:
         axis \a iAxis and returning a single acceleration, see there for details
         and examples.
     */
-    double GetAxisTargetAcceleration( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisTargetAcceleration( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -2976,8 +2912,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisMinAngle( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisMinAngle( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -2986,8 +2921,7 @@ public:
         \a iAxis and returning a single minimum angle, see there for details
         and examples.
     */
-    double GetAxisMinAngle( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisMinAngle( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -3045,8 +2979,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisMaxAngle( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisMaxAngle( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -3055,8 +2988,7 @@ public:
         \a iAxis and returning a single maximum angle, see there for details
         and examples.
     */
-    double GetAxisMaxAngle( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisMaxAngle( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -3119,8 +3051,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisMaxVelocity( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisMaxVelocity( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -3129,8 +3060,7 @@ public:
         axis \a iAxis and returning a single minimum angle, see there for
         details and examples.
     */
-    double GetAxisMaxVelocity( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisMaxVelocity( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -3188,8 +3118,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetAxisMaxAcceleration( std::vector<int> const& axes )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetAxisMaxAcceleration( std::vector<int> const& axes );
 
 
     //----------------------------------------------------------------------
@@ -3198,8 +3127,7 @@ public:
         axis \a iAxis and returning a single minimum angle, see there for
         details and examples.
     */
-    double GetAxisMaxAcceleration( int iAxis )
-        throw (cSDHLibraryException*);
+    double GetAxisMaxAcceleration( int iAxis );
 
 
     //-----------------------------------------------------------------
@@ -3313,8 +3241,7 @@ public:
 
         <hr>
     */
-    double MoveAxis( std::vector<int>const& axes, bool sequ=true )
-        throw (cSDHLibraryException*);
+    double MoveAxis( std::vector<int>const& axes, bool sequ=true );
 
 
     //----------------------------------------------------------------------
@@ -3322,8 +3249,7 @@ public:
         Like #MoveAxis(std::vector<int>const&,bool), just for a single axis
         \a iAxis (or all axes if #All is given).
     */
-    double MoveAxis( int iAxis, bool sequ=true )
-        throw (cSDHLibraryException*);
+    double MoveAxis( int iAxis, bool sequ=true );
 
 
     // unimplemented from SAH:
@@ -3406,8 +3332,7 @@ public:
 
         <hr>
     */
-    void SetFingerEnable( std::vector<int> const& fingers, std::vector<double> const& states )
-        throw (cSDHLibraryException*);
+    void SetFingerEnable( std::vector<int> const& fingers, std::vector<double> const& states );
 
 
     //----------------------------------------------------------------------
@@ -3416,8 +3341,7 @@ public:
         just for a single finger \a iAxis and a single angle \a angle, see
         there for details and examples.
     */
-    void SetFingerEnable( int iFinger, double state=1.0 )
-        throw (cSDHLibraryException*);
+    void SetFingerEnable( int iFinger, double state=1.0 );
 
 
     //----------------------------------------------------------------------
@@ -3426,8 +3350,7 @@ public:
         just with states as vector of \c bool values, see there for details and
         examples.
     */
-    void SetFingerEnable( std::vector<int> const& fingers, std::vector<bool> const& states )
-        throw (cSDHLibraryException*);
+    void SetFingerEnable( std::vector<int> const& fingers, std::vector<bool> const& states );
 
 
     //----------------------------------------------------------------------
@@ -3436,8 +3359,7 @@ public:
         just for a single finger \a iAxis and a single angle \a angle, see
         there for details and examples.
     */
-    void SetFingerEnable( int iFinger, bool state )
-        throw (cSDHLibraryException*);
+    void SetFingerEnable( int iFinger, bool state );
 
 
     //-----------------------------------------------------------------
@@ -3490,8 +3412,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetFingerEnable( std::vector<int> const& fingers )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetFingerEnable( std::vector<int> const& fingers );
 
 
     //----------------------------------------------------------------------
@@ -3500,8 +3421,7 @@ public:
         just for a single finger \a iFinger and returning a single
         double value
     */
-    double GetFingerEnable( int iFinger )
-        throw (cSDHLibraryException*);
+    double GetFingerEnable( int iFinger );
 
 
     //-----------------------------------------------------------------
@@ -3564,8 +3484,7 @@ public:
 
         <hr>
     */
-    void SetFingerTargetAngle( int iFinger, std::vector<double> const& angles )
-        throw (cSDHLibraryException*);
+    void SetFingerTargetAngle( int iFinger, std::vector<double> const& angles );
 
 
     //-----------------------------------------------------------------
@@ -3573,8 +3492,7 @@ public:
         Like #SetFingerTargetAngle(int,std::vector<double>const&), just with
         individual finger axis angles \a a0, \a a1 and \a a2.
     */
-    void SetFingerTargetAngle( int iFinger, double a0, double a1, double a2 )
-        throw (cSDHLibraryException*);
+    void SetFingerTargetAngle( int iFinger, double a0, double a1, double a2 );
 
 
     //-----------------------------------------------------------------
@@ -3616,8 +3534,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetFingerTargetAngle( int iFinger )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetFingerTargetAngle( int iFinger );
 
 
     //-----------------------------------------------------------------
@@ -3625,8 +3542,7 @@ public:
         Like #GetFingerTargetAngle(int), just returning the target axis angles
         in the \a a0, \a a1 and \a a2 parameters which are given by reference.
     */
-    void GetFingerTargetAngle( int iFinger, double& a0, double& a1, double& a2 )
-        throw (cSDHLibraryException*);
+    void GetFingerTargetAngle( int iFinger, double& a0, double& a1, double& a2 );
 
 
     //-----------------------------------------------------------------
@@ -3668,8 +3584,7 @@ public:
 
        <hr>
     */
-    std::vector<double> GetFingerActualAngle( int iFinger )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetFingerActualAngle( int iFinger );
 
 
     //-----------------------------------------------------------------
@@ -3677,8 +3592,7 @@ public:
         Like #GetFingerActualAngle(int), just returning the actual axis angles
         in the \a a0, \a a1 and \a a2 parameters which are given by reference.
     */
-    void GetFingerActualAngle( int iFinger, double& a0, double& a1, double& a2 )
-        throw (cSDHLibraryException*);
+    void GetFingerActualAngle( int iFinger, double& a0, double& a1, double& a2 );
 
 
     //-----------------------------------------------------------------
@@ -3729,8 +3643,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetFingerMinAngle( int iFinger )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetFingerMinAngle( int iFinger );
 
 
     //-----------------------------------------------------------------
@@ -3739,8 +3652,7 @@ public:
         the finger axis min angles in the \a a0, \a a1 and \a a2 parameters
         which are given by reference.
     */
-    void GetFingerMinAngle( int iFinger, double& a0, double& a1, double& a2 )
-        throw (cSDHLibraryException*);
+    void GetFingerMinAngle( int iFinger, double& a0, double& a1, double& a2 );
 
 
     //-----------------------------------------------------------------
@@ -3791,8 +3703,7 @@ public:
 
         <hr>
     */
-    std::vector<double> GetFingerMaxAngle( int iFinger )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetFingerMaxAngle( int iFinger );
 
 
     //-----------------------------------------------------------------
@@ -3801,8 +3712,7 @@ public:
         the finger axis max angles in the \a a0, \a a1 and \a a2 parameters
         which are given by reference.
     */
-    void GetFingerMaxAngle( int iFinger, double& a0, double& a1, double& a2 )
-        throw (cSDHLibraryException*);
+    void GetFingerMaxAngle( int iFinger, double& a0, double& a1, double& a2 );
 
 
 
@@ -3863,8 +3773,7 @@ public:
 
        <hr>
     */
-    std::vector<double> GetFingerXYZ( int iFinger, std::vector<double> const& angles )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetFingerXYZ( int iFinger, std::vector<double> const& angles );
 
 
     //-----------------------------------------------------------------
@@ -3872,8 +3781,7 @@ public:
         Like #SetFingerTargetAngle(int,std::vector<double>const&), just with
         individual finger axis angles \a a0, \a a1 and \a a2.
     */
-    std::vector<double> GetFingerXYZ( int iFinger, double a0, double a1, double a2 )
-        throw (cSDHLibraryException*);
+    std::vector<double> GetFingerXYZ( int iFinger, double a0, double a1, double a2 );
 
 
     //-----------------------------------------------------------------
@@ -3974,8 +3882,7 @@ public:
         <br><b>=> Partly resolved in %SDH firmware 0.0.2.7</b>
         <hr>
     */
-    double MoveFinger( std::vector<int>const& fingers, bool sequ=true )
-        throw (cSDHLibraryException*);
+    double MoveFinger( std::vector<int>const& fingers, bool sequ=true );
 
 
     //----------------------------------------------------------------------
@@ -3983,8 +3890,7 @@ public:
         Like #MoveFinger(std::vector<int>const&,bool), just for a single finger
         \a iFinger (or all fingers if #All is given).
     */
-    double MoveFinger( int iFinger, bool sequ=true )
-        throw (cSDHLibraryException*);
+    double MoveFinger( int iFinger, bool sequ=true );
 
 
     //-----------------------------------------------------------------
@@ -4005,8 +3911,7 @@ public:
        the axes jerk.
        <br><b>=> Parltly resolved in %SDH firmware 0.0.2.7</b>
     */
-    double MoveHand( bool sequ=true )
-        throw (cSDHLibraryException*);
+    double MoveHand( bool sequ=true );
 
 
     //  end of doxygen name group sdhlibrary_cpp_sdh_h_csdh_finger
@@ -4122,8 +4027,7 @@ public:
 
         <hr>
     */
-    double GripHand( eGraspId grip, double close, double velocity, bool sequ=true )
-        throw (cSDHLibraryException*);
+    double GripHand( eGraspId grip, double close, double velocity, bool sequ=true );
 
 
     //  end of doxygen name group sdhlibrary_cpp_sdh_h_csdh_grip

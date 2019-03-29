@@ -119,7 +119,6 @@ cRS232::cRS232( int _port, unsigned long _baudrate, double _timeout, char const*
 //----------------------------------------------------------------------
 
 void cRS232::Open( void )
-throw (cRS232Exception*)
 {
     char device[ device_format_string.size()+5 ]; // initializer just to get just enough space
 
@@ -247,7 +246,6 @@ throw()
 
 
 void cRS232::Close( void )
-throw (cRS232Exception*)
 {
     if ( fd < 0 )
         throw new cRS232Exception( cMsg( "Could not close un-opened device" ) );
@@ -258,7 +256,6 @@ throw (cRS232Exception*)
 //----------------------------------------------------------------------
 
 tcflag_t cRS232::BaudrateToBaudrateCode( unsigned long baudrate )
-throw (cRS232Exception*)
 {
     switch (baudrate)
     {
@@ -322,7 +319,6 @@ throw (cRS232Exception*)
 //----------------------------------------------------------------------
 
 int cRS232::write( char const *ptr, int len )
-throw (cRS232Exception*)
 {
     if ( len == 0 )
         len = strlen( ptr );
@@ -343,7 +339,6 @@ throw (cRS232Exception*)
 
 
 ssize_t cRS232::Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data )
-throw (cRS232Exception*)
 {
     if (fd < 0)
         return status;

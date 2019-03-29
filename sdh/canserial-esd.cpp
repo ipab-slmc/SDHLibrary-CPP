@@ -180,7 +180,6 @@ using namespace std;
 
 
 cCANSerial_ESD::cCANSerial_ESD( int _net, unsigned long _baudrate, double _timeout, int _id_read, int _id_write )
-throw (cCANSerial_ESDException*)
 {
     pimpl = NULL;
     assert( sizeof( NTCAN_HANDLE ) == sizeof( tDeviceHandle) ); // if this fails, please adjust the tDeviceHandle type
@@ -201,7 +200,6 @@ throw (cCANSerial_ESDException*)
 //----------------------------------------------------------------------
 
 cCANSerial_ESD::cCANSerial_ESD( tDeviceHandle _ntcan_handle, double _timeout, int _id_read, int _id_write )
-throw (cCANSerial_ESDException*)
 {
     pimpl = NULL;
     assert( sizeof( NTCAN_HANDLE ) == sizeof( tDeviceHandle) ); // if this fails, please adjust the tDeviceHandle type
@@ -284,7 +282,6 @@ char const* ESD_strerror( NTCAN_RESULT rc )
 
 
 void cCANSerial_ESD::Open( void )
-throw (cCANSerial_ESDException*)
 {
     if ( pimpl->ntcan_handle == NTCAN_HANDLE(NTCAN_INVALID_HANDLE) )
     {
@@ -333,7 +330,6 @@ throw()
 
 
 void cCANSerial_ESD::Close( void )
-throw (cCANSerial_ESDException*)
 {
     if ( pimpl->ntcan_handle == NTCAN_HANDLE(NTCAN_INVALID_HANDLE) )
         throw new cCANSerial_ESDException( cMsg( "Could not close un-opened device" ) );
@@ -344,7 +340,6 @@ throw (cCANSerial_ESDException*)
 //----------------------------------------------------------------------
 
 unsigned int cCANSerial_ESD::BaudrateToBaudrateCode( unsigned long baudrate )
-throw (cCANSerial_ESDException*)
 {
     switch (baudrate)
     {
@@ -364,7 +359,6 @@ throw (cCANSerial_ESDException*)
 //----------------------------------------------------------------------
 
 int cCANSerial_ESD::write( char const *ptr, int len )
-throw (cCANSerial_ESDException*)
 {
     assert( pimpl->ntcan_handle != NTCAN_HANDLE(NTCAN_INVALID_HANDLE) );
 
@@ -420,7 +414,6 @@ throw (cCANSerial_ESDException*)
 
 
 ssize_t cCANSerial_ESD::Read( void *_data, ssize_t size, long timeout_us, bool return_on_less_data )
-throw (cCANSerial_ESDException*)
 {
     assert( pimpl->ntcan_handle != NTCAN_HANDLE(NTCAN_INVALID_HANDLE) );
 
@@ -483,7 +476,6 @@ throw (cCANSerial_ESDException*)
 
 
 void cCANSerial_ESD::SetTimeout( double _timeout )
-throw (cSerialBaseException*)
 {
     if ( _timeout < 0.0 )
         _timeout = 0.0;

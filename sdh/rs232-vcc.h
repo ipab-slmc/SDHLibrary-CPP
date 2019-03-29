@@ -100,13 +100,10 @@ public:
     cRS232( int _port, unsigned long _baudrate, double _timeout, char const* _device_format_string = "" );
     ~cRS232(void);
 
-    void Open( void )
-    throw (cRS232Exception*);
-    void Close( void )
-    throw (cRS232Exception*);
+    void Open( void );
+    void Close( void );
 
-    virtual void SetTimeout( double _timeout )
-        throw (cSerialBaseException*);
+    virtual void SetTimeout( double _timeout );
 
 #ifndef RS_232_TEST
     bool IsOpen()
@@ -115,8 +112,7 @@ public:
 #else
     bool IsOpen() { return true; }
 #endif
-    int write( char const *ptr, int len=0 )
-    throw (cRS232Exception*);
+    int write( char const *ptr, int len=0 );
 
     /*!
     * Read data from device. This function waits until \a max_time_us us passed or
@@ -126,11 +122,9 @@ public:
     * If the \a return_on_less_data is false, data is only read from serial line, if at least
     * \a size bytes are available.
     */
-    ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data )
-    throw (cRS232Exception*);
+    ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data );
 
-    char* readline(char* line, int size, char* eol, bool return_on_less_data)
-    throw (cRS232Exception*);
+    char* readline(char* line, int size, char* eol, bool return_on_less_data);
 
     //! overloaded from cSerialBase::UseCRC16 since we want to use a CRC16 to protect binary RS232 communication
     virtual bool UseCRC16()

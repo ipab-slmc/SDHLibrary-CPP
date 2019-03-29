@@ -98,27 +98,22 @@ public:
     };
 
     //! Default constructor: init members to zero
-    cSimpleVector()
-        throw (cSimpleVectorException*);
+    cSimpleVector();
 
 
     //! Constructor: init members from \a nb_values comma separated values in the give string \a str
-    cSimpleVector( int nb_values, char const* str )
-        throw (cSimpleVectorException*);
+    cSimpleVector( int nb_values, char const* str );
 
 
     //! Constructor: init members from \a nb_values comma separated values in the give string \a str
-    cSimpleVector( int nb_values, int start_index, char const* str )
-        throw (cSimpleVectorException*);
+    cSimpleVector( int nb_values, int start_index, char const* str );
 
     //! Constructor: init members beginning with \a start_index from \a nb_values in arrray \a values
-    cSimpleVector( int nb_values, int start_index, float* values )
-        throw (cSimpleVectorException*);
+    cSimpleVector( int nb_values, int start_index, float* values );
 
 
     //! init \a nb_values starting from index \a start_index from comma separated values in \a str
-    void FromString( int nb_values, int start_index, char const* str )
-        throw (cSimpleVectorException*);
+    void FromString( int nb_values, int start_index, char const* str );
 
 
     //! index operator, return a reference to the \a index-th element of this

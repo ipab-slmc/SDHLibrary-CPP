@@ -168,15 +168,13 @@ public:
 
        <hr>
     */
-    void Open( cSerialBase* _com )
-        throw(cSDHLibraryException*);
+    void Open( cSerialBase* _com );
 
 
     /*!
         Close connection to serial port.
     */
-    void Close()
-        throw (cSDHLibraryException*);
+    void Close();
 
 
     /*!
@@ -200,22 +198,19 @@ public:
 
         Return a list of all read lines of the reply from the %SDH hardware.
     */
-    void Send( char const* s, int nb_lines=All, int nb_lines_total=All, int max_retries=3 )
-        throw( cSDHLibraryException* );
+    void Send( char const* s, int nb_lines=All, int nb_lines_total=All, int max_retries=3 );
 
 
     /*!
         Try to extract the state of the %SDH firmware from the last reply
     */
-    void ExtractFirmwareState()
-        throw( cSDHErrorCommunication* );
+    void ExtractFirmwareState();
 
 
     /*!
         Return duration of the execution of a %SDH command as reported by line
     */
-    double GetDuration( char* line )
-        throw( cSDHErrorCommunication* );
+    double GetDuration( char* line );
 
 
     /*!
@@ -230,20 +225,17 @@ public:
     /*!
       Read all pending lines from %SDH to resync execution of PC and %SDH.
      */
-    void Sync( )
-        throw( cSDHErrorCommunication* );
+    void Sync( );
 
     /*!
       Read all available bytes within \a timeout_s seconds to resync execution of PC and %SDH.
      */
-    void BinarySync( double timeout_s = 0.5 )
-        throw( cSDHErrorCommunication* );
+    void BinarySync( double timeout_s = 0.5 );
 
     /*!
       Read an unknown number of lines from %SDH to resync execution of PC and %SDH.
      */
-    void SyncUnknown( )
-        throw( cSDHErrorCommunication* );
+    void SyncUnknown( );
 
 
     /*!
@@ -259,8 +251,7 @@ public:
         - If axis is All and value is a NUMBER_OF_AXES-vector then all axes
           values are set accordingly, a NUMBER_OF_AXES-list is returned.
     */
-    cSimpleVector AxisCommand( char const* command, int axis=All, double* value=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector AxisCommand( char const* command, int axis=All, double* value=NULL );
 
     /*!
         Get/Set values using binary mode.
@@ -275,8 +266,7 @@ public:
         - If axis is All and value is a NUMBER_OF_AXES-vector then all axes
           values are set accordingly, a NUMBER_OF_AXES-list is returned.
     */
-    cSimpleVector BinaryAxisCommand( eCommandCode command, int axis=All, double* value=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector BinaryAxisCommand( eCommandCode command, int axis=All, double* value=NULL );
 
 
     //  end of doxygen name group sdhlibrary_cpp_csdhserial_internal
@@ -305,8 +295,7 @@ public:
              With SDH firmwares 0.0.2.10 and newer this now works.
              <br><b>=> Resolved in SDH firmware 0.0.2.10</b>
     */
-    cSimpleVector pid( int axis, double* p=NULL, double* i=NULL, double* d=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector pid( int axis, double* p=NULL, double* i=NULL, double* d=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -326,8 +315,7 @@ public:
              With SDH firmwares 0.0.2.10 and newer this now works.
              <br><b>=> Resolved in SDH firmware 0.0.2.10</b>
     */
-    cSimpleVector kv( int axis=All, double* kv=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector kv( int axis=All, double* kv=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -342,8 +330,7 @@ public:
         - If axis is All and limit is a NUMBER_OF_AXES-vector then
           all axes motor current limits are set accordingly, the NUMBER_OF_AXES-list is returned.
     */
-    cSimpleVector ilim( int axis=All, double* limit=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector ilim( int axis=All, double* limit=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -362,8 +349,7 @@ public:
           value then all axes power states are set to that value, the
           NUMBER_OF_AXES-list is returned.
     */
-    cSimpleVector power( int axis=All, double* flag=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector power( int axis=All, double* flag=NULL );
 
     //  end of doxygen name group sdhlibrary_cpp_csdhserial_setup_commands
     //! @}
@@ -446,8 +432,7 @@ public:
 
 
     */
-    cSimpleVector v( int axis=All, double* velocity=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector v( int axis=All, double* velocity=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -471,8 +456,7 @@ public:
         \bug With %SDH firmware < 0.0.1.0 axis 0 can go no faster than 14 deg/s
         <br><b>=> Resolved in %SDH firmware 0.0.1.0</b>
     */
-    cSimpleVector tvav( int axis=All, double* velocity=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector tvav( int axis=All, double* velocity=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -489,8 +473,7 @@ public:
 
         Velocity limits are reported in degrees per second.
     */
-    cSimpleVector vlim( int axis=All, double* dummy=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector vlim( int axis=All, double* dummy=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -507,8 +490,7 @@ public:
 
         Acceleration limits are reported in degrees per (second*second).
     */
-    cSimpleVector alim( int axis=All, double* dummy=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector alim( int axis=All, double* dummy=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -526,8 +508,7 @@ public:
 
         Accelerations are set/reported in degrees per second squared.
     */
-    cSimpleVector a( int axis=All, double* acceleration=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector a( int axis=All, double* acceleration=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -545,8 +526,7 @@ public:
 
         Angles are set/reported in degrees.
     */
-    cSimpleVector p( int axis=All, double* angle=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector p( int axis=All, double* angle=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -564,8 +544,7 @@ public:
 
         Angles are set/reported in degrees.
     */
-    cSimpleVector tpap( int axis=All, double* angle=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector tpap( int axis=All, double* angle=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -581,8 +560,7 @@ public:
 
         return the expected duration of the execution of the command in seconds
     */
-    double m( bool sequ )
-        throw (cSDHLibraryException*);
+    double m( bool sequ );
 
     //-----------------------------------------------------------------
     /*!
@@ -590,8 +568,7 @@ public:
 
         Will NOT interrupt a previous "selgrip" or "grip" command, only an "m" command!
     */
-    void stop( void )
-        throw(cSDHLibraryException*);
+    void stop( void );
 
 
     //-----------------------------------------------------------------
@@ -602,8 +579,7 @@ public:
         read from the %SDH firmware and returned. Else the given velocity_profile type
         is set in the %SDH firmware if valid.
     */
-    eVelocityProfile vp( eVelocityProfile velocity_profile = eVP_INVALID )
-        throw (cSDHLibraryException*);
+    eVelocityProfile vp( eVelocityProfile velocity_profile = eVP_INVALID );
 
 
     //-----------------------------------------------------------------
@@ -614,8 +590,7 @@ public:
         read from the %SDH firmware and returned. Else the given controller type
         is set in the %SDH firmware if valid.
     */
-    eControllerType con( eControllerType controller )
-        throw (cSDHLibraryException*);
+    eControllerType con( eControllerType controller );
 
     //  end of doxygen name group sdhlibrary_cpp_csdhserial_movement_commands
     //! @}
@@ -646,8 +621,7 @@ public:
           a pointer to the other functions, which is needed by the
           generic cSDH::SetAxisValue and cSDH::GetAxisValue functions.
     */
-    cSimpleVector pos( int axis=All, double* dummy=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector pos( int axis=All, double* dummy=NULL );
 
     /*!
         Save actual angle/s to non volatile memory. (Usefull for axes that dont have an absolute encoder)
@@ -661,8 +635,7 @@ public:
         - This will yield a E_RANGE_ERROR if any of the given values is not  0 or 1
     */
     //-----------------------------------------------------------------
-    cSimpleVector pos_save( int axis=All, double* value=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector pos_save( int axis=All, double* value=NULL );
 
     //-----------------------------------------------------------------
 
@@ -679,8 +652,7 @@ public:
           then all axes are referenced as requested.
         - This will yield a E_RANGE_ERROR if any of the given values is not  0 or 1 or 2
     */
-    cSimpleVector ref( int axis=All, double* value=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector ref( int axis=All, double* value=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -700,8 +672,7 @@ public:
           a pointer to the other functions, which is needed by the
           generic cSDH::SetAxisValue and cSDH::GetAxisValue functions.
     */
-    cSimpleVector vel( int axis=All, double* dummy=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector vel( int axis=All, double* dummy=NULL );
 
     /*!
         Get current reference angular velocity/s of axis/axes.
@@ -724,8 +695,7 @@ public:
             available in %SDH firmwares prior to 0.0.2.6. For such hands
             calling rvel will fail miserably.
     */
-    cSimpleVector rvel( int axis, double* dummy=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector rvel( int axis, double* dummy=NULL );
 
 
     //-----------------------------------------------------------------
@@ -739,8 +709,7 @@ public:
         - If axis is a single number then the
           actual state of that axis is returned.
     */
-    cSimpleVector state( int axis=All, double* dummy=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector state( int axis=All, double* dummy=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -749,8 +718,7 @@ public:
         Returns a list of the actual controller and driver temperature in degrees celsius.
 
     */
-    cSimpleVector temp( void )
-        throw (cSDHLibraryException*);
+    cSimpleVector temp( void );
 
     //-----------------------------------------------------------------
     /*!
@@ -761,8 +729,7 @@ public:
         Returns a list of the actual controller and driver temperature in degrees celsius.
 
     */
-    cSimpleVector temp_electronics( void )
-        throw (cSDHLibraryException*);
+    cSimpleVector temp_electronics( void );
 
     //-----------------------------------------------------------------
     /*!
@@ -772,8 +739,7 @@ public:
         The string returned is stored internally in this object and
         might be overwritten by the next command to this object
     */
-    char* ver( void )
-        throw (cSDHLibraryException*);
+    char* ver( void );
     //-----------------------------------------------------------------
 
     /*!
@@ -783,8 +749,7 @@ public:
         The string returned is stored internally in this object and
         might be overwritten by the next command to this object
     */
-    char* ver_date( void )
-        throw (cSDHLibraryException*);
+    char* ver_date( void );
     //-----------------------------------------------------------------
 
     /*!
@@ -794,8 +759,7 @@ public:
         The string returned is stored internally in this object and
         might be overwritten by the next command to this object
     */
-    char* id( void )
-        throw (cSDHLibraryException*);
+    char* id( void );
 
     //-----------------------------------------------------------------
     /*!
@@ -805,8 +769,7 @@ public:
         The string returned is stored internally in this object and
         might be overwritten by the next command to this object
     */
-    char* sn( void )
-        throw (cSDHLibraryException*);
+    char* sn( void );
 
     //-----------------------------------------------------------------
     /*!
@@ -816,8 +779,7 @@ public:
         The string returned is stored internally in this object and
         might be overwritten by the next command to this object
     */
-    char* soc( void )
-        throw (cSDHLibraryException*);
+    char* soc( void );
 
     //-----------------------------------------------------------------
     /*!
@@ -827,15 +789,13 @@ public:
         The string returned is stored internally in this object and
         might be overwritten by the next command to this object
     */
-    char* soc_date( void )
-        throw (cSDHLibraryException*);
+    char* soc_date( void );
 
     //-----------------------------------------------------------------
     /*!
         Return number of axis of %SDH
     */
-    int numaxis( void )
-        throw (cSDHLibraryException*);
+    int numaxis( void );
 
 
     //  end of doxygen name group sdhlibrary_cpp_csdhserial_diagnosis_commands
@@ -862,8 +822,7 @@ public:
         - If axis is All and limit is a NUMBER_OF_AXES-vector then all axes
           motor current limits are set accordingly, the NUMBER_OF_AXES-list is returned.
     */
-    cSimpleVector igrip( int axis=All, double* limit=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector igrip( int axis=All, double* limit=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -878,8 +837,7 @@ public:
         - If axis is All and limit is a NUMBER_OF_AXES-vector then all axes
           motor current limits are set accordingly, the NUMBER_OF_AXES-list is returned.
     */
-    cSimpleVector ihold( int axis=All, double* limit=NULL )
-        throw (cSDHLibraryException*);
+    cSimpleVector ihold( int axis=All, double* limit=NULL );
 
     //-----------------------------------------------------------------
     /*!
@@ -895,8 +853,7 @@ public:
 
         return the expected duration of the execution of the command in seconds
      */
-    double selgrip( eGraspId grip, bool sequ )
-        throw (cSDHLibraryException*);
+    double selgrip( eGraspId grip, bool sequ );
 
     //-----------------------------------------------------------------
     /*!
@@ -913,8 +870,7 @@ public:
 
         return the expected duration of the execution of the command in seconds
     */
-    double grip( double close, double velocity, bool sequ )
-        throw (cSDHLibraryException*);
+    double grip( double close, double velocity, bool sequ );
 
     //  end of doxygen name group sdhlibrary_cpp_csdhserial_grip_commands
     //! @}

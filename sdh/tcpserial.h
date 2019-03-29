@@ -123,22 +123,19 @@ public:
                          - == 0.0 : zero timeout = return immediately
                          -  > 0.0 : timeout in seconds
      */
-    cTCPSerial( char const* _tcp_adr, int _tcp_port, double _timeout )
-        throw (cTCPSerialException*);
+    cTCPSerial( char const* _tcp_adr, int _tcp_port, double _timeout );
 
     /*!
       Open the device as configured by the parameters given to the constructor
     */
-    void Open( void )
-        throw (cTCPSerialException*);
+    void Open( void );
 
     //! Return true if interface to CAN ESD is open
     bool IsOpen( void )
         throw();
 
     //! Close the previously opened CAN ESD interface port.
-    void Close( void )
-        throw (cTCPSerialException*);
+    void Close( void );
 
     //! Write data to a previously opened port.
     /*!
@@ -149,8 +146,7 @@ public:
 
       \return the number of bytes actually written
     */
-    int write( char const *ptr, int len=0 )
-        throw (cTCPSerialException*);
+    int write( char const *ptr, int len=0 );
 
     /*!
       Read data from device. This function waits until \a max_time_us us passed or
@@ -160,12 +156,10 @@ public:
       If the \a return_on_less_data is false, data is only read from serial line, if at least
       \a size bytes are available.
     */
-    ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data )
-        throw (cTCPSerialException*);
+    ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data );
 
     //! set the timeout for next #readline() calls (negative value means: no timeout, wait for ever)
-    void SetTimeout( double _timeout )
-        throw (cSerialBaseException*);
+    void SetTimeout( double _timeout );
 
     /*!
      * Overloaded helper function that returns the last TCP error number.

@@ -98,8 +98,7 @@ protected:
     int fd;
 
     //! Translate a baudrate given as unsigned long into a baudrate code for struct termios
-    tcflag_t BaudrateToBaudrateCode( unsigned long baudrate )
-    throw (cRS232Exception*);
+    tcflag_t BaudrateToBaudrateCode( unsigned long baudrate );
 
     int status;
 
@@ -130,16 +129,14 @@ public:
    *   - #SDH_USE_BINARY_COMMUNICATION
    *   <br><b>=> Resolved in %SDHLibrary 0.0.2.2</b>
   */
-  void Open( void )
-      throw (cRS232Exception*);
+  void Open( void );
 
   //! Return true if port to RS232 is open
   bool IsOpen( void )
       throw();
 
   //! Close the previously opened rs232 port.
-  void Close( void )
-      throw (cRS232Exception*);
+  void Close( void );
 
   //! Write data to a previously opened port.
   /*!
@@ -150,8 +147,7 @@ public:
 
       \return the number of bytes actually written
   */
-  int write( char const *ptr, int len=0 )
-      throw (cRS232Exception*);
+  int write( char const *ptr, int len=0 );
 
   /*!
     Read data from device. This function waits until \a max_time_us us passed or
@@ -161,8 +157,7 @@ public:
     If the \a return_on_less_data is false, data is only read from serial line, if at least
     \a size bytes are available.
    */
-  ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data )
-      throw (cRS232Exception*);
+  ssize_t Read( void *data, ssize_t size, long timeout_us, bool return_on_less_data );
 
   //! overloaded from cSerialBase::UseCRC16 since we want to use a CRC16 to protect binary RS232 communication
   virtual bool UseCRC16()
