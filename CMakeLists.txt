@@ -90,3 +90,49 @@ install(TARGETS ${PROJECT_NAME}
         ARCHIVE DESTINATION lib
         PUBLIC_HEADER DESTINATION include/schunk_sdh
 )
+
+option(BUILD_DEMOS "Build demo programs" OFF)
+
+if(BUILD_DEMOS)
+    ## demo source files
+    set(demo_sources
+        "demo/demo-benchmark.cpp"
+        "demo/demo-dsa.cpp"
+        "demo/demo-dsa-simple.cpp"
+        "demo/demo-GetAxisActualAngle.cpp"
+        "demo/demo-GetFingerXYZ.cpp"
+        "demo/demo-griphand.cpp"
+        "demo/demo-mimic.cpp"
+        "demo/demo-radians.cpp"
+        "demo/demo-simple2.cpp"
+        "demo/demo-simple3.cpp"
+        "demo/demo-simple.cpp"
+        "demo/demo-simple-withtiming.cpp"
+        "demo/demo-temperature.cpp"
+        "demo/demo-velocity-acceleration.cpp"
+    )
+
+    ## demo executables
+    include_directories(.)
+    foreach(demo_source IN LISTS demo_sources)
+        get_filename_component(demo_name ${demo_source} NAME_WE)
+        add_executable(${demo_name} ${demo_source} "demo/sdhoptions.cpp")
+        target_link_libraries(${demo_name} ${PROJECT_NAME})
+        install(TARGETS ${demo_name} RUNTIME DESTINATION bin)
+    endforeach()
+
+    if(WITH_ESD_CAN OR WITH_PEAK_CAN)
+        add_executable(cancat demo/cancat.cpp "demo/sdhoptions.cpp")
+        target_link_libraries(cancat ${PROJECT_NAME})
+        install(TARGETS cancat RUNTIME DESTINATION bin)
+    endif()
+
+    find_package(Boost COMPONENTS system thread)
+    if(${Boost_FOUND})
+        include_directories(${Boost_INCLUDE_DIRS})
+        link_libraries(${Boost_LIBRARIES})
+        add_executable(demo-contact-grasping demo/demo-contact-grasping.cpp demo/sdhoptions.cpp demo/dsaboost.cpp)
+        target_link_libraries(demo-contact-grasping ${PROJECT_NAME})
+        install(TARGETS demo-contact-grasping RUNTIME DESTINATION bin)
+    endif()
+endif()
