@@ -935,14 +935,14 @@ cSimpleVector cSDHSerial::tvav( int axis, double* velocity )
 //-----------------------------------------------------------------
 
 
-cSimpleVector cSDHSerial::vlim( int axis, double* dummy )
+cSimpleVector cSDHSerial::vlim( int axis, double* /*dummy*/ )
 {
     return AxisCommand( "vlim", axis, NULL );
 }
 //-----------------------------------------------------------------
 
 
-cSimpleVector cSDHSerial::alim( int axis, double* dummy )
+cSimpleVector cSDHSerial::alim( int axis, double* /*dummy*/ )
 {
     return AxisCommand( "alim", axis, NULL );
 }
@@ -1065,7 +1065,7 @@ cSDHBase::eControllerType cSDHSerial::con( eControllerType controller )
 //----------------------------------------------------------------------
 
 
-cSimpleVector cSDHSerial::pos( int axis, double* dummy )
+cSimpleVector cSDHSerial::pos( int axis, double* /*dummy*/ )
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_POS, axis );
@@ -1093,7 +1093,7 @@ cSimpleVector cSDHSerial::ref( int axis, double* value )
 //----------------------------------------------------------------------
 
 
-cSimpleVector cSDHSerial::vel( int axis, double* dummy )
+cSimpleVector cSDHSerial::vel( int axis, double* /*dummy*/ )
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_VEL, axis );
@@ -1104,7 +1104,7 @@ cSimpleVector cSDHSerial::vel( int axis, double* dummy )
 //----------------------------------------------------------------------
 
 
-cSimpleVector cSDHSerial::rvel( int axis, double* dummy )
+cSimpleVector cSDHSerial::rvel( int axis, double* /*dummy*/ )
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_RVEL, axis );
@@ -1115,7 +1115,7 @@ cSimpleVector cSDHSerial::rvel( int axis, double* dummy )
 //----------------------------------------------------------------------
 
 
-cSimpleVector cSDHSerial::state( int axis, double* dummy )
+cSimpleVector cSDHSerial::state( int axis, double* /*dummy*/ )
 {
 #if SDH_USE_BINARY_COMMUNICATION
     return BinaryAxisCommand( CMDC_STATE, axis );
@@ -1226,7 +1226,7 @@ cSimpleVector cSDHSerial::ihold( int axis, double* limit )
 //-----------------------------------------------------------------
 
 
-double cSDHSerial::selgrip( eGraspId grip, bool sequ )
+double cSDHSerial::selgrip( eGraspId grip, bool /*sequ*/ )
 {
     // Actual input/output for the command looks like:
     //--
@@ -1274,7 +1274,7 @@ double cSDHSerial::selgrip( eGraspId grip, bool sequ )
 //-----------------------------------------------------------------
 
 
-double cSDHSerial::grip( double close, double velocity, bool sequ )
+double cSDHSerial::grip( double close, double velocity, bool /*sequ*/ )
 {
     // Actual input/output for the command looks like:
     //--
