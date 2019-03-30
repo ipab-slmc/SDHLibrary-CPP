@@ -84,11 +84,20 @@ endif()
 add_library(${PROJECT_NAME} SHARED ${lib_sources})
 
 ## install library
+include(GNUInstallDirs)
 set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${lib_header}")
-install(TARGETS ${PROJECT_NAME}
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib
-        PUBLIC_HEADER DESTINATION include/schunk_sdh
+target_include_directories(${PROJECT_NAME} PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/sdh>"
+    "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+install(TARGETS ${PROJECT_NAME} EXPORT sdhlibrary_cpp
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/schunk_sdh
+)
+
+install(EXPORT sdhlibrary_cpp
+        DESTINATION share/sdhlibrary_cpp/cmake
+        FILE sdhlibrary_cppConfig.cmake
 )
 
 option(BUILD_DEMOS "Build demo programs" OFF)
